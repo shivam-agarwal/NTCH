@@ -111,7 +111,7 @@ function MatrixVisualization()
             .style("opacity", 0);
         svg.append("svg:image").attr("class", "lock").attr("x", -17).attr(
             "y", -17).attr("width", 10).attr("height", 10).attr(
-            "xlink:href", "images/lock.svg").attr("opacity", 0);
+            "xlink:href", "static/images/lock.svg").attr("opacity", 0);
         // svg.append("line")
         //    .attr("stroke-width",2)
         //    // .attr("transform", "translate(0,10)")
@@ -1801,7 +1801,7 @@ function MatrixVisualization()
                 async: false,
 
                 //data: JSON.stringify(data),
-                url: 'http://localhost:5000/similarity',
+                url: '/similarity',
                 success: function (fetchdataResult) {
                 console.log(fetchdataResult["matrix"]);
                     // draw_Scatterplot(fetchdataResult)
@@ -2123,7 +2123,7 @@ function MatrixVisualization()
             .style("opacity", 1);
         svg.append("svg:image").attr("class", "lock").attr("x", -17).attr(
             "y", -17).attr("width", 10).attr("height", 10).attr(
-            "xlink:href", "images/lock.svg").attr("opacity", 1);
+            "xlink:href", "static/images/lock.svg").attr("opacity", 1);
         // svg.append("circle")
         // .attr("class", "stateCircle")
         // .attr("cx", 5)

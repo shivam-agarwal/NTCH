@@ -1563,7 +1563,7 @@ controlPointPadd = 10;*/
                 1 && AugmentedNodeTrix._currentHighlightedPair.dst != -
                 1)
             {
-                console.log(AugmentedNodeTrix._currentHighlightedPair.src, ", ", AugmentedNodeTrix._currentHighlightedPair.dst);
+                // console.log(AugmentedNodeTrix._currentHighlightedPair.src, ", ", AugmentedNodeTrix._currentHighlightedPair.dst);
                 path.classed('bezierCurvesHighlighted', false);
                 path.classed('bezierCurvesDeHighlighted', true);
             }
