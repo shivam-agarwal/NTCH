@@ -1,5 +1,4 @@
 pip==8.1.2
-adium-theme-ubuntu==0.3.4
 apsw==3.8.11.1.post1
 backports.shutil-get-terminal-size==1.0.0
 BeautifulSoup==3.2.1
