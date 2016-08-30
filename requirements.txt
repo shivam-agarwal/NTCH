@@ -6,7 +6,6 @@ beautifulsoup4==4.4.1
 chardet==2.3.0
 CherryPy==3.5.0
 click==6.6
-compizconfig-python==0.9.12.2
 configparser==3.5.0
 cssselect==0.9.1
 cssutils==1.0
