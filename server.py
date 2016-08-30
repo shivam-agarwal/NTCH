@@ -8,8 +8,8 @@ import numpy as np
 import scipy as sp
 # import skfuzzy as fuzz
 import pickle
-from sklearn import metrics
-from sklearn import preprocessing
+# from sklearn import metrics
+# from sklearn import preprocessing
 import math
 import matplotlib.pyplot as plt
 import networkx as nx
