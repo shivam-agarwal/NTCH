@@ -3,7 +3,7 @@ import os.path
 from flask import Flask, request, json
 from flask import render_template
 from flask.ext.cors import CORS, cross_origin
-from sklearn.cluster import KMeans
+# from sklearn.cluster import KMeans
 import numpy as np
 import scipy as sp
 # import skfuzzy as fuzz
