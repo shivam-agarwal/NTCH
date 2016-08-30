@@ -514,33 +514,70 @@ $("#menu-toggle").click(function(e) {
     // d3.text('./dataSets/Nodetrix/Infovis2004Diss.csv', function(text) 
     //d3.text('./dataSets/IRIS/VAT_Euc', function(text) 
     {
-    var data = d3.csv.parseRows(text).map(function(row) 
-    {
-    return row.map(function(value) { return value; });
-    });
-
-
-      // dissMatrix = data; 
-      MatrixData = data;
-      dissimilarityMatrices = data;
-      var adjacencyMatrices =[];
-      d3.text('./dataSets/'+datasetName+'AdjacencyMatrices.csv', function(text)
-      {
         var data = d3.csv.parseRows(text).map(function(row) 
-        {
-          return row.map(function(value) { return value; });
-        });
-        adjacencyMatrices = data;
-      });
+                    {
+                        return row.map(function(value) { return value; });
+                    });
 
-       d3.text('./dataSets/'+datasetName+'EigenMatrix.csv', function(text)
-      {
-        var data = d3.csv.parseRows(text).map(function(row) 
-        {
-          return row.map(function(value) { return value; });
-        });
-        eigenMatricesData = data;
-      });
+
+          // dissMatrix = data; 
+          MatrixData = data;
+          dissimilarityMatrices = data;
+          var adjacencyMatrices =[];
+          d3.text('./dataSets/'+datasetName+'AdjacencyMatrices.csv', function(text)
+          {
+            var data = d3.csv.parseRows(text).map(function(row) 
+            {
+              return row.map(function(value) { return value; });
+            });
+            adjacencyMatrices = data;
+
+            d3.text('./dataSets/'+datasetName+'EigenMatrix.csv', function(text)
+            {
+                var data = d3.csv.parseRows(text).map(function(row) 
+                {
+                  return row.map(function(value) { return value; });
+                });
+                eigenMatricesData = data;
+                    d3.text('./dataSets/'+datasetName+'Edges.csv', function(text) 
+                          //d3.text('./dataSets/Synthetic/Synthetic_Adjacency', function(text)         
+                          //d3.text('./dataSets/IIITB_Prof_Data_20/ProfAdjacency.csv', function(text) 
+                          //d3.text('./dataSets/IRIS/VAT_Euc', function(text) 
+                          {
+                            var data = d3.csv.parseRows(text).map(function(row) 
+                            {
+                              return row.map(function(value) { return +value; });
+                            });
+                              // console.log(data);
+
+                              edgeList = [];
+                              for (var i=0;i<data.length; i++)
+                              {
+                                temp = {src: parseInt(data[i][0]), dst: parseInt(data[i][1]), cnt:parseInt(data[i][2])};
+                                edgeList.push(temp);
+                              }
+                              entireDataset = {DissimilarityMatrices: dissimilarityMatrices, AdjacencyMatrices: adjacencyMatrices, EigenMatrices: eigenMatricesData, EdgeList: edgeList};
+                             
+                              $.unblockUI();
+
+                              visualization = AugmentedNodeTrix('chartArea')
+                              .width( $('.col-lg-12').width() + $('#sidebar-wrapper').width() )
+                              .height(1500)
+                              .loadClusteringInfo(clusteringOrder)
+                                                        // .loadMatrix(MatrixData)
+                                                        .loadMatrix(entireDataset)
+                                                        .glyphType('rect')
+                                                        .renderAugmentedNodetrix('Dissimilarity')
+
+                                                        // Hide Side bar after data has loaded
+                                                        $("#wrapper").toggleClass("toggled");
+
+                            })
+          });
+
+          });
+
+          
       // console.log("Adjacency matrices",adjacencyMatrices);
 
       /*
@@ -560,258 +597,7 @@ $("#menu-toggle").click(function(e) {
       //     adjMatrixUnweighted[i] = [];
       // }
 
-      d3.text('./dataSets/'+datasetName+'Edges.csv', function(text) 
-      //d3.text('./dataSets/Synthetic/Synthetic_Adjacency', function(text)         
-      //d3.text('./dataSets/IIITB_Prof_Data_20/ProfAdjacency.csv', function(text) 
-      //d3.text('./dataSets/IRIS/VAT_Euc', function(text) 
-      {
-        var data = d3.csv.parseRows(text).map(function(row) 
-        {
-          return row.map(function(value) { return +value; });
-        });
-          // console.log(data);
-
-          edgeList = [];
-          for (var i=0;i<data.length; i++)
-          {
-            temp = {src: parseInt(data[i][0]), dst: parseInt(data[i][1]), cnt:parseInt(data[i][2])};
-            edgeList.push(temp);
-          }
-          entireDataset = {DissimilarityMatrices: dissimilarityMatrices, AdjacencyMatrices: adjacencyMatrices, EigenMatrices: eigenMatricesData, EdgeList: edgeList};
-          // console.log(edgeList);
-
-          // adjMatrix = data; 
-
-          // var initialPos = 0;      
-
-          // //Modify individual adjacency matrices as per the VATs requirements
-          // for( var k = 0; k < clusteringOrder.length ; ++k )
-          // {        
-          //       var matrixSize =  clusteringOrder[k] - initialPos, max = -1000, min = 100000;
-
-          //       // Square the adj matrix                
-          //       var matrix =  new Array(matrixSize);            
-          
-          //       for (var i = 0; i < matrixSize; i++)               
-          //           matrix[i] = new Array(matrixSize);
-
-          //       for (var i = 0; i < matrixSize; i++)   
-          //       {
-          //           for (var j = 0; j < matrixSize; j++)   
-          //           {
-          //               adjMatrix[i+initialPos][j+initialPos] > max ? max = adjMatrix[i+initialPos][j+initialPos] : {};
-
-          //               adjMatrix[i+initialPos][j+initialPos] < min ? min = adjMatrix[i+initialPos][j+initialPos] : {};
-          //           }
-          //       }
-
-          //       // Normalize betwen 0 and 1
-          //       for (var i = 0; i < matrixSize; i++)   
-          //       {
-          //           for (var j = 0; j < matrixSize; j++)   
-          //           {
-          //               adjMatrix[i+initialPos][j+initialPos] = i == j ? 0 : (adjMatrix[i+initialPos][j+initialPos]-min) / (max-min) ;                        
-
-          //               matrix[i][j] = adjMatrix[i+initialPos][j+initialPos] > 0 ? 1 : 0;
-          //               laplacianMatrix[i+initialPos][j+initialPos] =  matrix[i][j];  
-          //               normLaplacianMatrix[i+initialPos][j+initialPos] =  matrix[i][j];           
-          //           }
-          //       }                               
-
-          //       // Calculations for multipath matrix
-          //       matrix = exp(matrix,2);
-
-          //       for (var i = 0; i < matrixSize; i++)   
-          //       {
-          //           for (var j = 0; j < matrixSize; j++)   
-          //           {                        
-          //                 matrix[i][j] = adjMatrix[i+initialPos][j+initialPos] > 0 || matrix[i][j] > 0 ? 1 : 0;
-          //           }
-          //       }
-
-          //       normalizeMatrix(matrix);
-
-          //       for (var i = 0; i < matrixSize; i++)   
-          //               for (var j = 0; j < matrixSize; j++)   
-          //                   adjMatrixPow2[i+initialPos][j+initialPos] = i == j ? 0 : matrix[i][j] ;
-
-          //       // Reverse for proper visualization - Black values show edge, white not.
-          //       for (var i = 0; i < matrixSize; i++)   
-          //       {
-          //           for (var j = 0; j < matrixSize; j++)   
-          //           {
-          //               adjMatrix[i+initialPos][j+initialPos] = i == j ? 0 : 1 - adjMatrix[i+initialPos][j+initialPos];
-
-          //               adjMatrixUnweighted[i+initialPos][j+initialPos] = 1 == adjMatrix[i+initialPos][j+initialPos] ? 1 : 0;
-
-          //               adjMatrixPow2[i+initialPos][j+initialPos] = i == j ? 0 : 1 - adjMatrixPow2[i+initialPos][j+initialPos];
-          //           }
-          //       }
-
-
-          //       initialPos = clusteringOrder[k];
-          // }
-
-          // //Modify individual dissimilarity matrices as per the VATs requirements
-          // initialPos = 0;
-
-          // for( var k = 0; k < clusteringOrder.length ; ++k )
-          // {        
-          //       var matrixSize =  clusteringOrder[k] - initialPos, max = -1000, min = 100000;
-
-          //       for (var i = 0; i < matrixSize; i++)   
-          //       {
-          //           for (var j = 0; j < matrixSize; j++)   
-          //           {
-          //               dissMatrix[i+initialPos][j+initialPos] > max ? max = dissMatrix[i+initialPos][j+initialPos] : {};
-
-          //               dissMatrix[i+initialPos][j+initialPos] < min ? min = dissMatrix[i+initialPos][j+initialPos] : {};
-          //           }
-          //       }
-
-          //       if( min == max && 0 == min ){}
-          //       else 
-          //       {
-          //           // Normalize betwen 0 and 1
-          //           for (var i = 0; i < matrixSize; i++)   
-          //           {
-          //               for (var j = 0; j < matrixSize; j++)   
-          //               {
-
-          //                  if( min == max  )
-          //                     dissMatrix[i+initialPos][j+initialPos] = 1;
-          //                  else
-          //                     dissMatrix[i+initialPos][j+initialPos] = i == j ? 0 : (dissMatrix[i+initialPos][j+initialPos]-min) / (max-min) ;
-          //               }
-          //           }                  
-          //       }
-
-          //       initialPos = clusteringOrder[k];
-          // }
-
-          // // console.log("Modified Diss Matrix: ",dissMatrix);
-
-          // //Modify individual laplacian matrices
-          // initialPos = 0;
-
-          // for( var k = 0; k < clusteringOrder.length ; ++k )
-          // {        
-          //       var matrixSize =  clusteringOrder[k] - initialPos, max = -1000, min = 100000;
-
-          //       var degreeList = []
-          //       for (var i = 0; i < matrixSize; i++)   
-          //       {
-          //           var degree = 0;
-          //           for (var j = 0; j < matrixSize; j++)   
-          //           {
-          //               if( laplacianMatrix[i+initialPos][j+initialPos] > 0 )
-          //                 ++ degree;
-          //           }
-
-          //           degreeList[i] = degree;
-          //       } 
-
-          //       var min = 10000, max = -10000;
-          //       for (var i = 0; i < matrixSize; i++)   
-          //       {
-          //           for (var j = 0; j < matrixSize; j++)   
-          //           {
-          //               laplacianMatrix[i+initialPos][j+initialPos] = i == j ? degreeList[i] : -laplacianMatrix[i+initialPos][j+initialPos];
-
-          //               if ( laplacianMatrix[i+initialPos][j+initialPos] > max )
-          //                 max = laplacianMatrix[i+initialPos][j+initialPos];
-
-          //               if ( laplacianMatrix[i+initialPos][j+initialPos] < min )
-          //                 min = laplacianMatrix[i+initialPos][j+initialPos];
-          //           }
-          //       }
-
-
-          //       // Normalize betwen 0 and 1
-          //       for (var i = 0; i < matrixSize; i++)   
-          //       {
-          //           for (var j = 0; j < matrixSize; j++)   
-          //           {
-          //               if( min == max  )
-          //                   laplacianMatrix[i+initialPos][j+initialPos] = 1;
-          //               else
-          //                   laplacianMatrix[i+initialPos][j+initialPos] = (laplacianMatrix[i+initialPos][j+initialPos]-min) / (max-min) ;
-          //           }
-          //       } 
-
-          //       min = 10000; max = -10000;
-          //       for (var i = 0; i < matrixSize; i++)   
-          //       {
-          //           for (var j = 0; j < matrixSize; j++)   
-          //           {
-          //               if( i==j && 0 != degreeList[i] )
-          //               {
-          //                   normLaplacianMatrix[i+initialPos][j+initialPos] = 1;
-          //               }
-          //               else if( i!=j &&  1 != adjMatrix[i+initialPos][j+initialPos] )
-          //               {                          
-          //                   normLaplacianMatrix[i+initialPos][j+initialPos] = -1/( Math.sqrt( degreeList[i] * degreeList[j] ) );
-          //               }
-
-          //               else
-          //               {
-          //                   normLaplacianMatrix[i+initialPos][j+initialPos] = 0;
-          //               }
-
-          //               if ( normLaplacianMatrix[i+initialPos][j+initialPos] > max )
-          //                 max = normLaplacianMatrix[i+initialPos][j+initialPos];
-
-          //               if ( normLaplacianMatrix[i+initialPos][j+initialPos] < min )
-          //                 min = normLaplacianMatrix[i+initialPos][j+initialPos];
-          //           }
-          //       }
-
-          //       // Normalize betwen 0 and 1
-          //       for (var i = 0; i < matrixSize; i++)   
-          //       {
-          //           for (var j = 0; j < matrixSize; j++)   
-          //           {
-          //               if( min == max  )
-          //                   normLaplacianMatrix[i+initialPos][j+initialPos] = 1;
-          //               else
-          //                   normLaplacianMatrix[i+initialPos][j+initialPos] = (normLaplacianMatrix[i+initialPos][j+initialPos]-min) / (max-min) ;
-          //           }
-          //       }
-
-          //       initialPos = clusteringOrder[k];
-          // }
-
-          // // Fill in the adj filtered dissimilarity
-          // for (var i = 0; i < dissMatrix.length; i++)   
-          //     for (var j = 0; j < dissMatrix.length; j++)   
-          //         if( 1 == adjMatrix[i][j] )
-          //           adjWithDissimilarity[i][j] = 1 ;
-          //         else 
-          //           adjWithDissimilarity[i][j] = dissMatrix[i][j];
-
-          // // Fill in combined matrix
-          // dissAdjMatrix =  new Array(dissMatrix.length);            
-
-          // for (var i = 0; i < dissMatrix.length; i++)   
-          //     dissAdjMatrix[i] = new Array(dissMatrix.length);
-
-          // updateCombinedMatrix();
-
-          $.unblockUI();
-
-          visualization = AugmentedNodeTrix('chartArea')
-          .width( $('.col-lg-12').width() + $('#sidebar-wrapper').width() )
-          .height(1500)
-          .loadClusteringInfo(clusteringOrder)
-                                    // .loadMatrix(MatrixData)
-                                    .loadMatrix(entireDataset)
-                                    .glyphType('rect')
-                                    .renderAugmentedNodetrix('Dissimilarity')
-
-                                    // Hide Side bar after data has loaded
-                                    $("#wrapper").toggleClass("toggled");
-
-                                  })      
+        
     });
 
     $( "#color" ).selectmenu();
