@@ -2,7 +2,7 @@ import predict
 import os.path
 from flask import Flask, request, json
 from flask import render_template
-from flask.ext.cors import CORS, cross_origin
+from flask_cors import CORS, cross_origin
 # from sklearn.cluster import KMeans
 import numpy as np
 import scipy as sp
