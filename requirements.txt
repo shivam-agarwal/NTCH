@@ -17,6 +17,5 @@ pathlib2==2.1.0
 patsy==0.4.1
 pexpect==4.0.1
 Routes==2.2
-scikit-fuzzy==0.2
 scikit-learn==0.17.1
 scipy==0.17.0
