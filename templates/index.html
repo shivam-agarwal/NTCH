@@ -31,6 +31,12 @@
     <script src="static/js/matrixVisualization1.js" type="text/javascript"></script>
     <script src="static/js/pablo.js"></script>
     <script src="static/js/saveSvgAsPng.js"></script>
+
+
+    <script src="static/lib/science.v1.js"></script>
+    <script src="static/lib/tiny-queue.js"></script>
+    <script src="static/js/reorder.v1.js"></script>
+    <!-- <script src="static/js/matrix.js"></script> -->
     <style> 
   @import url("static/css/augmentedNodeTrix.css");
     </style>
@@ -503,6 +509,7 @@ $("#menu-toggle").click(function(e) {
     //var datasetName = 'wordnet/';
     // var datasetName = 'cora_nodetrix/';
     var datasetName = 'infovis/';
+    // var datasetName = 'morenodestest/';
     // var datasetName = 'a/';
     // var datasetName = 'freeassoc/';    //POS data
      // var datasetName = 'cora_classification/';
@@ -839,6 +846,7 @@ window.focusSidebarRefreshIdArray = ["clusterOptions", "sidebar-filter"];
       <optgroup label="Operations">
       <option value="Self">Self</option> 
         <option value="VATed">VAT Seriation</option> 
+        <option value="Leaf">Leaf Order Seriation</option> 
         <!-- <option value="CLUSION">CLUSION Coarse Seriation</option>  -->
         <option value="Lap">Laplacian</option>  
         <option value="Mod">Modularity</option>

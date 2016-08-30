@@ -41,7 +41,7 @@ function MatrixVisualization()
     function chart(data, parentID)
     {
 
-        console.log("inside chart initializing function");
+        // console.log("inside chart initializing function");
         _originalDataset = jQuery.extend(true,
         {}, data); // Deep copy the original dataset backup
         _matrixID = parentID;
@@ -337,7 +337,7 @@ function MatrixVisualization()
 
     function addCells(data, rowIndex)
     {
-        console.log("inside add cell");
+        // console.log("inside add cell");
 
         var min = 10000,
             max = -1;
@@ -815,7 +815,7 @@ function MatrixVisualization()
     }
     chart.reCalculateSize = function()
     {
-        console.log("inside reCalculateSize");
+        // console.log("inside reCalculateSize");
         var node = $('svg' + '#' + _matrixID + ' rect');
         // _width = node.attr("width");
         // _height = node.attr("height");
@@ -1352,6 +1352,92 @@ function MatrixVisualization()
         chart.renderUpdatedMatrix();
         return chart;
     }
+
+    chart.applyLeaf = function()
+    {
+         _history.push("Leaf");
+            this.actionHistoryRefresh();
+
+
+
+            // var test = ['b', 'c', 'd', 'a'];
+            // var len = _clusterVector.length;
+            // var indices = new Array(len);
+            // for (var i = 0; i < len; ++i) indices[i] = i;
+            // indices.sort(function (a, b) { return _clusterVector[a] < _clusterVector[b] ? -1 : _clusterVector[a] > _clusterVector[b] ? 1 : 0; });
+            // console.log(_clusterVector);
+            // console.log(indices);
+            var MatrixCopy = new Array(_matrixSize);
+            for (var i = 0; i < _matrixSize; i++) 
+                MatrixCopy[i] = new Array(_matrixSize);
+            // Exchange data
+            for (var i = 0; i < _matrixSize; ++i)
+            {
+                for (var j = 0; j < _matrixSize; ++j)
+                {
+                    MatrixCopy[i][j] = _matrix[i][j];
+                }
+            }
+            // var leafOrder = reorder.optimal_leaf_order()
+            // .distance(science.stats.distance.manhattan);
+
+            var perm = reorder.optimal_leaf_order(MatrixCopy);
+            var permuted_mat = reorder.stablepermute(MatrixCopy, perm);
+
+            console.log("permutation: ", perm);
+            console.log("permuted matrix: ",permuted_mat);
+            // var Matrix2 = new Array(_matrixSize);
+            // for (var i = 0; i < _matrixSize; i++) 
+            //     Matrix2[i] = new Array(_matrixSize);
+            // // Exchange data
+            // for (var i = 0; i < indices.length; ++i)
+            // {
+            //     for (var j = 0; j < indices.length; ++j)
+            //     {
+            //         Matrix2[i][j] = _matrix[indices[i]][indices[j]];
+            //     }
+            // }
+
+            //  _rowLabelsCopy = jQuery.extend(true, [], _rowLabels);
+            // _columnLabelsCopy = jQuery.extend(true, [], _columnLabels);
+
+            // // _rowLabelsCopy = _rowLabels;
+            // // _columnLabelsCopy = _columnLabels;
+
+            // _labelsData = _rowLabels;
+
+
+            // var tempAuthorArray = new Array(_labelsData.length);
+            // // Exchange the author data accordingly
+            // for (var i = 0; i < indices.length; ++i)
+            // {
+            //     // tempAuthorArray[i] = _labelsData[verticesChosen[i]];
+            //     tempAuthorArray[i] = _columnLabels[indices[i]];
+                
+            // }
+
+            // _rowLabels = jQuery.extend(true, [], tempAuthorArray);
+            // _columnLabels = jQuery.extend(true, [], tempAuthorArray);
+
+            // if(_rowLabels.length ==0 )
+            // {
+            //     console.log("this is 0 length row labels: ", this);
+            // }
+            // // _labelsData = tempAuthorArray;
+            // // _rowLabels = _labelsData;
+            // // _columnLabels = _labelsData;
+            // // Exchange Columns back to original matrix
+            // for (var i = 0; i < _matrix.length; ++i)
+            // {
+            //     for (var j = 0; j < _matrix[0].length; ++j)
+            //     {
+            //         _matrix[i][j] = Matrix2[i][j];
+            //     }
+            // }
+            chart.renderUpdatedMatrix();
+            return chart;
+    }
+
     chart.applyCLUSION = function()
     {
         _clusteringDone = true;

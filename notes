@@ -1,0 +1,8 @@
+firefox vs chrome difference in calclating left and top oundary points where paths connect
+force arrangement linearseparate
+left arrow
+outside browser
+-on drag change paths of only dragged matrix
+-progressive rendering
+https://www.sitepoint.com/10-ways-minimize-reflows-improve-performance/
+http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
