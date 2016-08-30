@@ -20,6 +20,7 @@ function MatrixVisualization()
     var _community_assignment_result, _alpha = 0.0,
         _beta, _cellWidthScale = 12,
         _history;
+        var _cellWidthScaleOriginal = _cellWidthScale;  
     var _state = "none"; //Other states will be "active" and "freezed"
     var _stateColors = {
         active: "green",
@@ -684,7 +685,7 @@ function MatrixVisualization()
                     async: false,
 
                     //data: JSON.stringify(data),
-                    url: 'http://localhost:5000/applyLaplacian',
+                    url: '/applyLaplacian',
                     success: function (fetchdataResult) {
                     console.log(fetchdataResult["matrix"]);
                         // draw_Scatterplot(fetchdataResult)
@@ -802,6 +803,7 @@ function MatrixVisualization()
         var node = $('svg' + '#' + _matrixID + ' rect');
         // _width = node.attr("width");
         // _height = node.attr("height");
+        _cellWidthScale = _cellWidthScaleOriginal *d3.event.scale;
         _width = node.attr("width")*d3.event.scale;
         _height = node.attr("height")* d3.event.scale;
          _axisPositioningScale = d3.scale.ordinal().domain(d3.range(
@@ -1730,7 +1732,7 @@ function MatrixVisualization()
                 async: false,
 
                 //data: JSON.stringify(data),
-                url: 'http://localhost:5000/coauthorlink',
+                url: '/coauthorlink',
                 success: function (fetchdataResult) {
                 console.log(fetchdataResult["matrix"]);
                     // draw_Scatterplot(fetchdataResult)
@@ -1899,7 +1901,7 @@ function MatrixVisualization()
                     async: false,
 
                     //data: JSON.stringify(data),
-                    url: 'http://localhost:5000/cluster',
+                    url: '/cluster',
                     success: function (fetchdataResult) {
                     // console.log(fetchdataResult["matrix"]);
                         // draw_Scatterplot(fetchdataResult)
