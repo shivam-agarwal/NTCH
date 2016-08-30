@@ -18,7 +18,7 @@ function AugmentedNodeTrix(chartContainerID)
     //var _overAllLabelsList                      = [{name: "1",id: 1},{name: "2",id: 2},{name: "3",id: 3},{name: "4",id: 4},{name: "5",id: 5},{name: "6",id: 6},{name: "7",id: 7},{name: "8",id: 8},{name: "9",id: 9},{name: "10",id: 10},{name: "11",id: 11},{name: "12",id: 12},{name: "13",id: 13},{name: "14",id: 14},{name: "15",id: 15},{name: "16",id: 16},{name: "17",id: 17},{name: "18",id: 18},{name: "19",id: 19},{name: "20",id: 1} ]
     var _chartContainerID = chartContainerID;
     var node;
-    var globalScaleFactor = 1;
+    AugmentedNodeTrix.globalScaleFactor = 1;
     window.globalCount=1;
     AugmentedNodeTrix._currentHighlightedPair = {
         src: -1,
@@ -1042,10 +1042,10 @@ function AugmentedNodeTrix(chartContainerID)
         // var newSelection = $('#' + _chartContainerID+ ' svg g :not(.bezierCurves)');
         
         container.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
-        globalScaleFactor = d3.event.scale;
+        AugmentedNodeTrix.globalScaleFactor = d3.event.scale;
         // topParent.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
         // $(".bezierCurves").attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
-        for (var i = 0; i < _piecewiseDatasetMatrix.length; ++i) _chart[i].reCalculateSize(topParent);
+        for (var i = 0; i < _piecewiseDatasetMatrix.length; ++i) _chart[i].reCalculateSize();
             tick();
       }
         // Individual matrices will be attached to these svg elements
@@ -1189,7 +1189,7 @@ function AugmentedNodeTrix(chartContainerID)
         // console.log("id1",id1, "id2",id2); 
         var cellPosition1, cellPosition2;
         // console.log("d3 scale= ", myd3.event.scale);
-        var controlPointPadd = 100 * globalScaleFactor;
+        var controlPointPadd = 100 * AugmentedNodeTrix.globalScaleFactor;
         // var path = d3.select('#' + AugmentedNodeTrix._parentID + ' g g').append(
         //     'path');
          var path = d3.select('#' + AugmentedNodeTrix._parentID ).append(

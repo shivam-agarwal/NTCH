@@ -17,6 +17,10 @@ function MatrixVisualization()
         _axisPositioningScale, _axisRowPositioningScale,
         _axisColumnPositioningScale, _matrixID, _originalDataset,
         _rowLabels, _columnLabels, _rowLabelsCopy, _columnLabelsCopy;
+
+//These copies are for calculating the path end points correctly after zooming in/out But matrix zooming is performed automatically
+    var _axisPositioningScaleCopy, _axisRowPositioningScaleCopy, _axisColumnPositioningScaleCopy; 
+
     var _community_assignment_result, _alpha = 0.0,
         _beta, _cellWidthScale = 12,
         _history;
@@ -36,7 +40,8 @@ function MatrixVisualization()
     // Assumes a parent SVG Id given along with data. Draws the matrix visualization inside it.	
     function chart(data, parentID)
     {
-        // console.log(data);
+
+        console.log("inside chart initializing function");
         _originalDataset = jQuery.extend(true,
         {}, data); // Deep copy the original dataset backup
         _matrixID = parentID;
@@ -51,7 +56,7 @@ function MatrixVisualization()
         _dissMatrix = jQuery.extend(true, [], data.dissimilarityMatrix);
         _eigenMatrix = jQuery.extend(true, [], data.eigenMatrix);
         _adjacencyMatrix = jQuery.extend(true, [], data.adjacencyMatrix);
-        console.log("Unnormalized Adjacency Matrix initialization", _unnormalizedAdjacencyMatrix);
+        // console.log("Unnormalized Adjacency Matrix initialization", _unnormalizedAdjacencyMatrix);
         _dissMatrix = normalize_Matrix(_dissMatrix, _matrixRowSize,
             _matrixColumnSize);
         _adjacencyMatrix = normalize_Matrix(_adjacencyMatrix,
@@ -82,6 +87,12 @@ function MatrixVisualization()
         _axisRowPositioningScale = d3.scale.ordinal().domain(d3.range(
             _matrixRowSize)).rangeBands([0, _height]);
 
+         _axisPositioningScaleCopy = d3.scale.ordinal().domain(d3.range(
+            _matrixSize)).rangeBands([0, _width]);
+        _axisColumnPositioningScaleCopy = d3.scale.ordinal().domain(d3.range(
+            _matrixColumnSize)).rangeBands([0, _width]);
+        _axisRowPositioningScaleCopy = d3.scale.ordinal().domain(d3.range(
+            _matrixRowSize)).rangeBands([0, _height]);
         var _clusterVector = new Array(_matrixSize);
         // if(_matrixSize >window.row){
         //   _axisRowPositioningScale = _axisPositioningScale;
@@ -92,6 +103,8 @@ function MatrixVisualization()
         //      _axisColumnPositioningScale = d3.scale.ordinal().domain(d3.range(_matrixColumnSize)).rangeBands([0, _width]);      
         // }
         // detectCommunities();
+
+
         svg = d3.selectAll('#' + _matrixID).attr("width", _width +
                 _margin.left + _margin.right).attr("height", _height +
                 _margin.top + _margin.bottom).attr("margin-left", -
@@ -324,6 +337,8 @@ function MatrixVisualization()
 
     function addCells(data, rowIndex)
     {
+        console.log("inside add cell");
+
         var min = 10000,
             max = -1;
         for (var i = 0; i < _matrixRowSize; ++i)
@@ -773,11 +788,11 @@ function MatrixVisualization()
     }
     chart.width = function()
     {
-        return d3.select('#' + _matrixID).attr('width');
+        return d3.select('#' + _matrixID).attr('width') * AugmentedNodeTrix.globalScaleFactor;
     }
     chart.height = function()
     {
-        return d3.select('#' + _matrixID).attr('height');
+        return d3.select('#' + _matrixID).attr('height')* AugmentedNodeTrix.globalScaleFactor;
     }
     chart.hasID = function(authorID)
     {
@@ -798,23 +813,28 @@ function MatrixVisualization()
         }
         return false;
     }
-    chart.reCalculateSize = function(node)
+    chart.reCalculateSize = function()
     {
+        console.log("inside reCalculateSize");
         var node = $('svg' + '#' + _matrixID + ' rect');
         // _width = node.attr("width");
         // _height = node.attr("height");
-        _cellWidthScale = _cellWidthScaleOriginal *d3.event.scale;
-        _width = node.attr("width")*d3.event.scale;
-        _height = node.attr("height")* d3.event.scale;
-         _axisPositioningScale = d3.scale.ordinal().domain(d3.range(
+        _cellWidthScale = _cellWidthScaleOriginal * AugmentedNodeTrix.globalScaleFactor;
+        _width = node.attr("width")*AugmentedNodeTrix.globalScaleFactor;
+        _height = node.attr("height")* AugmentedNodeTrix.globalScaleFactor;
+
+        // console.log(_width, ", ", _height);
+
+         _axisPositioningScaleCopy = d3.scale.ordinal().domain(d3.range(
             _matrixSize)).rangeBands([0, _width]);
-        _axisColumnPositioningScale = d3.scale.ordinal().domain(d3.range(
+        _axisColumnPositioningScaleCopy = d3.scale.ordinal().domain(d3.range(
             _matrixColumnSize)).rangeBands([0, _width]);
-        _axisRowPositioningScale = d3.scale.ordinal().domain(d3.range(
+        _axisRowPositioningScaleCopy = d3.scale.ordinal().domain(d3.range(
             _matrixRowSize)).rangeBands([0, _height]);
+        chart.renderUpdatedMatrix();
         // console.log(_width+", "+_height);
     }
-    chart.connectingPosition = function(authorID, connectionType)
+   chart.connectingPosition = function(authorID, connectionType)
         {
             var i = 0;
             for (; i < _columnLabels.length; ++i)
@@ -835,63 +855,63 @@ function MatrixVisualization()
             var parentHolderLeftTopX = offset.left - offSetChart.left
             var parentHolderLeftTopY = offset.top - offSetChart.top
             // console.log(offset.left+", "+drawnMatrixTopLeftX);
-            var padding = _axisRowPositioningScale.rangeBand() / 2;
+            var padding = _axisRowPositioningScaleCopy.rangeBand() / 2;
             var xposition, yposition;
             // var padding = 0;
             if ('left' == connectionType)
             {
                 xposition = parentHolderLeftTopX + padding;
-                yposition = drawnMatrixTopLeftY + (currentAuthorPosition * _axisPositioningScale.rangeBand()) + padding;
+                yposition = drawnMatrixTopLeftY + (currentAuthorPosition * _axisPositioningScaleCopy.rangeBand()) + padding;
                 // return {
                 //     xPos: parentHolderLeftTopX + padding,
                 //     yPos: drawnMatrixTopLeftY + (currentAuthorPosition *
-                //         _axisPositioningScale.rangeBand()) + padding
+                //         _axisPositioningScaleCopy.rangeBand()) + padding
                 // };
             }
             else if ('right' == connectionType)
             {
-                xposition = drawnMatrixTopLeftX + (_axisRowPositioningScale.rangeBand() *
+                xposition = drawnMatrixTopLeftX + (_axisRowPositioningScaleCopy.rangeBand() *
                         _matrixColumnSize) + padding;
                 yposition = drawnMatrixTopLeftY + (currentAuthorPosition *
-                            _axisColumnPositioningScale.rangeBand()) +
+                            _axisColumnPositioningScaleCopy.rangeBand()) +
                         padding;
                 // return {
-                //     xPos: drawnMatrixTopLeftX + (_axisRowPositioningScale.rangeBand() *
+                //     xPos: drawnMatrixTopLeftX + (_axisRowPositioningScaleCopy.rangeBand() *
                 //         _matrixColumnSize) + padding,
                 //     yPos: drawnMatrixTopLeftY + (currentAuthorPosition *
-                //             _axisColumnPositioningScale.rangeBand()) +
+                //             _axisColumnPositioningScaleCopy.rangeBand()) +
                 //         padding
                 // };
             }
             else if ('bottom' == connectionType)
             {
                 xposition = drawnMatrixTopLeftX + (currentAuthorPosition *
-                        _axisRowPositioningScale.rangeBand()) + padding;
+                        _axisRowPositioningScaleCopy.rangeBand()) + padding;
                 yposition = drawnMatrixTopLeftY + (
-                        _axisColumnPositioningScale.rangeBand() *
+                        _axisColumnPositioningScaleCopy.rangeBand() *
                         _matrixRowSize) + padding;
                 
                 // var wid , hei;
-                // wid = _axisRowPositioningScale.rangeBand() *_matrixColumnSize;
-                // hei = _axisColumnPositioningScale.rangeBand() * _matrixRowSize;
+                // wid = _axisRowPositioningScaleCopy.rangeBand() *_matrixColumnSize;
+                // hei = _axisColumnPositioningScaleCopy.rangeBand() * _matrixRowSize;
 
                 // console.log(wid,", ",hei);
                 // return {
                 //     xPos: drawnMatrixTopLeftX + (currentAuthorPosition *
-                //         _axisRowPositioningScale.rangeBand()) + padding,
+                //         _axisRowPositioningScaleCopy.rangeBand()) + padding,
                 //     yPos: drawnMatrixTopLeftY + (
-                //         _axisColumnPositioningScale.rangeBand() *
+                //         _axisColumnPositioningScaleCopy.rangeBand() *
                 //         _matrixRowSize) + padding
                 // };
             }
             else if ('top' == connectionType)
             {
                  xposition = drawnMatrixTopLeftX + (currentAuthorPosition *
-                        _axisRowPositioningScale.rangeBand()) + padding;
+                        _axisRowPositioningScaleCopy.rangeBand()) + padding;
                 yposition = parentHolderLeftTopY + padding;
                 // return {
                 //     xPos: drawnMatrixTopLeftX + (currentAuthorPosition *
-                //         _axisRowPositioningScale.rangeBand()) + padding,
+                //         _axisRowPositioningScaleCopy.rangeBand()) + padding,
                 //     yPos: parentHolderLeftTopY + padding
                 // };
             }
@@ -2225,6 +2245,7 @@ function MatrixVisualization()
     }
     chart.renderUpdatedMatrix = function()
     {
+
         // Community Detection
         // detectCommunities();  
         // console.log(_matrix)
@@ -2283,6 +2304,8 @@ function MatrixVisualization()
 
     function updateRowCells(data)
     {
+
+        
         // console.log(data);
         if ('circle' == AugmentedNodeTrix.glyphType)
         {
@@ -2320,7 +2343,7 @@ function MatrixVisualization()
                 }).attr("y", function(d)
                 {
                     return 0;
-                }).attr("width", _axisRowPositioningScale.rangeBand()).attr(
+                }).attr("width", _axisRowPositioningScale.rangeBand() ).attr(
                     "height", _axisColumnPositioningScale.rangeBand()).style(
                     "fill", function(d, i)
                     {
