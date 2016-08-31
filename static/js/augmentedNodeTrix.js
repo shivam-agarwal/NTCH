@@ -107,6 +107,10 @@ function AugmentedNodeTrix(chartContainerID)
         {
             _focusNodeToFreeze = false;
         }
+
+        //Shivam-To correct right arrow behavior
+          rightSidebarToggler();
+          
         _chart[_focusNodeIndex].focusNode();
         return this;
     }
@@ -118,6 +122,7 @@ function AugmentedNodeTrix(chartContainerID)
             {
                 $("#test2.container.sidebar.sidebar-right").find(
                     ".toggler").trigger("click");
+                $("#test2.container.sidebar.sidebar-right").find(".toggler").hide();
             }
             if (_focusNodeIndex != -1)
             {
@@ -425,13 +430,25 @@ function AugmentedNodeTrix(chartContainerID)
             i].updateColorScale(AugmentedNodeTrix._colorScaleStart,
             AugmentedNodeTrix._colorScaleEnd)
     }
-
+    function rightSidebarToggler()
+    {
+         $(".glyphicon-chevron-left").hide();
+        $(".glyphicon-chevron-right").show();
+       
+    }
     function populateSidebar(index)
     {
+        console.log($("#test2.container.sidebar.sidebar-right").find(".toggler"));
         if ($("#test2").attr("data-status") == "closed")
         {
+            $("#test2.container.sidebar.sidebar-right").find(".toggler").show();
             $("#test2.container.sidebar.sidebar-right").find(".toggler")
-                .trigger("click");
+            .click();
+            // console.log($("#test2.container.sidebar.sidebar-right").find(".toggler").click());
+          
+            
+
+                // .trigger("click");
         }
         if (_chart[index].isSquareMAtrix())
         {
@@ -1177,7 +1194,14 @@ function AugmentedNodeTrix(chartContainerID)
             d3.event.preventDefault();
             // console.log(this);
             // onSelectMatrix(index);
+            // console.log($("#test2").attr("data-status"));
+            // if ($("#test2").attr("data-status") != "opened")
+            //  {
+            //     $("#test2.container.sidebar.sidebar-right").find(
+            //             ".toggler").trigger("click");
+            //  }
             populateSidebar(index);
+
             visualization.focusNode(index);
             // console.log(index);
             // _chart[index].printMatrix();
