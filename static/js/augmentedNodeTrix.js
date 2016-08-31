@@ -5,6 +5,7 @@ function AugmentedNodeTrix(chartContainerID)
     var _height = 500;
     var _datasetMatrix = [];
     var _piecewiseDatasetMatrix = [];
+    var _numberofNodes=0;
     var _clusteringList;
     var _focusNodeIndex = -1;
     var _focusNodeToFreeze = false;
@@ -110,7 +111,7 @@ function AugmentedNodeTrix(chartContainerID)
 
         //Shivam-To correct right arrow behavior
           rightSidebarToggler();
-          
+
         _chart[_focusNodeIndex].focusNode();
         return this;
     }
@@ -156,6 +157,7 @@ function AugmentedNodeTrix(chartContainerID)
             temp_row = parseInt(dataset[i][0]);
             temp_column = parseInt(dataset[i][1]);
             temp_matrix = new Array(temp_row);
+            _numberofNodes += temp_row;
             for (var j = 0; j < temp_row; j++)
             {
                 temp_matrix[j] = new Array(temp_column);
@@ -1101,11 +1103,20 @@ function AugmentedNodeTrix(chartContainerID)
         
 
         //Shivam - Done to set zoom level acording to amount of data beind displayed
-        // AugmentedNodeTrix.globalScaleFactor = _piecewiseDatasetMatrix.length/50;
-        AugmentedNodeTrix.globalScaleFactor=1;
+        console.log("number of nodes=",_numberofNodes);
+        if(_numberofNodes >50)
+            AugmentedNodeTrix.globalScaleFactor = 150/ _numberofNodes;
+        else
+            AugmentedNodeTrix.globalScaleFactor=1;
 
-        var zoomWidth = (_width-AugmentedNodeTrix.globalScaleFactor*_width)/2;
-        var zoomHeight = (_height-AugmentedNodeTrix.globalScaleFactor*_height)/2;
+
+      
+
+
+        //TODO-Shivam - Calculate a rough center of the layout (Like a convex hull or bounding box and its width/2, height/2)
+        var zoomWidth = (_width-AugmentedNodeTrix.globalScaleFactor*_width)/2 ;
+        var zoomHeight = (_height-AugmentedNodeTrix.globalScaleFactor*_height)/2 ;
+        // var zoomHeight = (_height-AugmentedNodeTrix.globalScaleFactor*_height)/2;
 
 
 
@@ -1161,6 +1172,10 @@ function AugmentedNodeTrix(chartContainerID)
             .nodes(_piecewiseDatasetMatrix)
              .linkDistance(_width/AugmentedNodeTrix.globalScaleFactor);
 
+        // force.on("tick", function() {
+        //     nodes[0].x = _width / 2;
+        //     nodes[0].y = _height / 2;
+        // });
         nodes = container.selectAll(".node").data(
             _piecewiseDatasetMatrix).enter().append("g").attr(
             "class", "node").call(node_drag);
@@ -1177,7 +1192,7 @@ function AugmentedNodeTrix(chartContainerID)
             container.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
             AugmentedNodeTrix.globalScaleFactor = d3.event.scale.toFixed(1);  //to avoid long decimal calculations
 
-            // console.log(AugmentedNodeTrix.globalScaleFactor);
+            console.log(AugmentedNodeTrix.globalScaleFactor);
             // topParent.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
             // $(".bezierCurves").attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
             for (var i = 0; i < _piecewiseDatasetMatrix.length; ++i) _chart[i].reCalculateSize();
@@ -1259,7 +1274,29 @@ function AugmentedNodeTrix(chartContainerID)
         // tick();
         force.stop();
 
+        //Shivam-All of this to translate to center fo layout nodes. But it has some error as it is not perfectly translating when a single matrix is in data.
+        var xpositionsofmatrices = [];
+        var ypositionsofmatrices = [];
+        for(var i=0; i<_piecewiseDatasetMatrix.length; i++)
+        {
+            xpositionsofmatrices.push($("#matrix"+i).offset()["left"]);
+            ypositionsofmatrices.push($("#matrix"+i).offset()["top"]);
+
+        }
+        xpositionsofmatrices.sort(function(a, b) {
+              return a - b;
+            });
+        ypositionsofmatrices.sort(function(a, b) {
+              return a - b;
+            });
+
+        console.log(xpositionsofmatrices, ypositionsofmatrices);
+        var centerx = (xpositionsofmatrices[xpositionsofmatrices.length-1] - xpositionsofmatrices[0])/2  ;
+        var centery = (ypositionsofmatrices[ypositionsofmatrices.length-1] - ypositionsofmatrices[0])/2  ;
+        console.log(centerx, centery);
+        // container.attr("transform", "translate("+centerx+","+centery+")");
         //To redraw when starting at a different zoom level than 1
+        // container.attr("transform", "translate("+centerx+","+centery+") scale("+AugmentedNodeTrix.globalScaleFactor+")");
         container.attr("transform", "translate("+zoomWidth+","+zoomHeight+") scale("+AugmentedNodeTrix.globalScaleFactor+")");
         for (var i = 0; i < _piecewiseDatasetMatrix.length; ++i) _chart[i].reCalculateSize();
         tick();
@@ -1319,7 +1356,7 @@ function AugmentedNodeTrix(chartContainerID)
     function tick()
     {
         //
-        console.log("inside tick");
+        // console.log("inside tick");
         nodes.attr("transform", function(d)
         {
             // return "translate(" + (d.x * globalScaleFactor)/ 1.3  + "," + (d.y * globalScaleFactor)/ 2 +
