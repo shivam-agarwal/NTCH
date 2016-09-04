@@ -1,3 +1,4 @@
+
 function MatrixVisualization()
 {
     var _margin = {
@@ -36,6 +37,7 @@ function MatrixVisualization()
 
     var _clusteringDone = false;
     var _clusterVector;
+    var _showLayer3Edges;
 
     // Assumes a parent SVG Id given along with data. Draws the matrix visualization inside it.	
     function chart(data, parentID)
@@ -94,6 +96,8 @@ function MatrixVisualization()
         _axisRowPositioningScaleCopy = d3.scale.ordinal().domain(d3.range(
             _matrixRowSize)).rangeBands([0, _height]);
         var _clusterVector = new Array(_matrixSize);
+
+        _showLayer3Edges = false;
         // if(_matrixSize >window.row){
         //   _axisRowPositioningScale = _axisPositioningScale;
         //   _axisColumnPositioningScale = _axisPositioningScale;
@@ -136,7 +140,8 @@ function MatrixVisualization()
         //    .attr("x2", _width)
         //    .attr("y2", _height +5);
         // -----------------------------
-        var row = svg.selectAll(".row").data(_matrix).enter().append(
+        var row = svg.selectAll(".row").data(_matrix)
+                .attr("id", function(d,i){return "Row"+i;}).enter().append(
             "g").attr("class", "row").attr("transform", function(d,
             i)
         {
@@ -169,7 +174,9 @@ function MatrixVisualization()
         {
             // console.log("matrix: ",d["matrixData"][0]);
             return d["dissimilarityMatrix"][0];
-        }).enter().append("g").attr("class", "column").attr(
+        })
+        .attr("id", function(d,i){return "Column"+i;})
+        .enter().append("g").attr("class", "column").attr(
             "transform", function(d, i)
             {
                 // console.log(data);
@@ -200,6 +207,48 @@ function MatrixVisualization()
         .style('font-size', 11)
         return this;
     }
+
+     function highlightDehighlightPath(src, dest, highlight)
+    {
+        if(highlight)
+        {
+            var path =  d3.selectAll(".bezierCurves.n"+src+',.bezierCurves.n'+dest);
+            // console.log(src, dest, path);
+            path.classed('bezierCurvesHighlighted', true);
+            path.classed('bezierCurvesDeHighlighted', false);
+        }
+       else
+       {
+            var path =  d3.selectAll(".bezierCurves.n"+src+',.bezierCurves.n'+dest);
+            // console.log(src, dest, path);
+            path.classed('bezierCurvesHighlighted', false);
+            path.classed('bezierCurvesDeHighlighted', true);
+       } 
+    }
+
+    chart.removeMultilayerPaths = function(index)
+        {
+            _showLayer3Edges =false;
+             // d3.selectAll('#' + AugmentedNodeTrix._parentID +
+             //    ' .layer3.mat'+index).attr("opacity",0);
+             d3.selectAll(' .layer3.mat'+index).attr("opacity",0);
+        }
+    chart.rerenderMultilayerPaths = function(index)
+        {
+            _showLayer3Edges = true;
+            // d3.selectAll('#' + AugmentedNodeTrix._parentID +
+            //    ' .mat'+index + '.layer3').attr("opacity",1);
+            d3.selectAll(' .mat'+index + '.layer3').attr("opacity",1);
+            var a = d3.selectAll(' .mat'+index + '.layer3');
+
+            console.log(' .mat'+index + '.layer3' , d3.selectAll(' .mat'+index + '.layer3'));
+        }
+
+    chart.getShowLayer3Edges = function()
+    {
+        return _showLayer3Edges;
+    }
+
     chart.getComplementMatrix = function()
     {
         return _complementMatrix;
@@ -269,6 +318,8 @@ function MatrixVisualization()
             circle.style("fill", _stateColors.none).style("opacity", 0);
             lock.style("opacity", 0);
         }
+        
+        
         return this;
     }
     chart.focusNode = function()
@@ -293,13 +344,23 @@ function MatrixVisualization()
         {
             $("#complement").attr("checked", "true");
         }
+        // console.log(_showLayer3Edges);
+        if (_showLayer3Edges)
+        {
+            $("#layer3edge_focus").attr("checked", "true");
+        }
+        // else
+        // {
+        //     $("#layer3edge_focus").attr("checked", "false");
+        // }
         // console.log("in focus",_complementMatrix);
         // if(!_complementMatrix)
         // {
         //     chart.updateMatrixByComplement();
         //     _complementMatrix = true;
         // }
-        // $("#complement").attr("checked", "true");      
+        // $("#complement").attr("checked", "true");    
+        
         return this;
     }
     chart.getState = function()
@@ -430,8 +491,8 @@ function MatrixVisualization()
                     return 0;
                     // return _axisColumnPositioningScale.rangeBand()*i;
                 }).attr("width", _axisRowPositioningScale.rangeBand()).attr(
-                    "height", _axisColumnPositioningScale.rangeBand()).on(
-                    'mouseover', function(d, colIndex)
+                    "height", _axisColumnPositioningScale.rangeBand())
+                .on('mouseover', function(d, colIndex)
                     {
                         d3.selectAll("#" + _matrixID + " .row text").classed(
                             'active', function(d, i)
@@ -469,10 +530,16 @@ function MatrixVisualization()
                             AugmentedNodeTrix._currentHighlightedPair.dst =
                                 _columnLabels[colIndex].id;
                         }
+                        // console.log(AugmentedNodeTrix._currentHighlightedPair.src, AugmentedNodeTrix._currentHighlightedPair.dst);
+                        highlightDehighlightPath(AugmentedNodeTrix._currentHighlightedPair.src,  AugmentedNodeTrix._currentHighlightedPair.dst, true);
+
                     }).on('mouseout', function(d)
                 {
                     d3.selectAll("text").classed('active', false)
                     d3.selectAll("text").classed('deactive', false)
+
+                    highlightDehighlightPath(AugmentedNodeTrix._currentHighlightedPair.src,  AugmentedNodeTrix._currentHighlightedPair.dst, false);
+
                     AugmentedNodeTrix._currentHighlightedPair.src = -
                         1;
                     AugmentedNodeTrix._currentHighlightedPair.dst = -
@@ -858,10 +925,24 @@ function MatrixVisualization()
             var padding = _axisRowPositioningScaleCopy.rangeBand() / 2;
             var xposition, yposition;
             // var padding = 0;
+
+            var rowOffset = $('svg' + '#'+ _matrixID + " #Row"+currentAuthorPosition).offset();
+            rowOffset.left = rowOffset.left - offSetChart.left;
+            rowOffset.top = rowOffset.top - offSetChart.top;
+
+            var columnOffset =   $('svg' + '#'+ _matrixID + " #Column"+currentAuthorPosition).offset();
+            columnOffset.left = columnOffset.left - offSetChart.left;
+            columnOffset.top = columnOffset.top - offSetChart.top;
+
+            // console.log(rowOffset, columnOffset);
+
             if ('left' == connectionType)
             {
-                xposition = parentHolderLeftTopX + padding;
-                yposition = drawnMatrixTopLeftY + (currentAuthorPosition * _axisPositioningScaleCopy.rangeBand()) + padding;
+                // xposition = parentHolderLeftTopX + padding;
+                // yposition = drawnMatrixTopLeftY + (currentAuthorPosition * _axisPositioningScaleCopy.rangeBand()) + padding;
+                xposition = rowOffset["left"];
+                yposition = rowOffset["top"] + padding;
+
                 // return {
                 //     xPos: parentHolderLeftTopX + padding,
                 //     yPos: drawnMatrixTopLeftY + (currentAuthorPosition *
@@ -870,11 +951,23 @@ function MatrixVisualization()
             }
             else if ('right' == connectionType)
             {
-                xposition = drawnMatrixTopLeftX + (_axisRowPositioningScaleCopy.rangeBand() *
-                        _matrixColumnSize) + padding;
-                yposition = drawnMatrixTopLeftY + (currentAuthorPosition *
-                            _axisColumnPositioningScaleCopy.rangeBand()) +
-                        padding;
+                // xposition = drawnMatrixTopLeftX + (_axisRowPositioningScaleCopy.rangeBand() *
+                //         _matrixColumnSize) + padding;
+                // yposition = drawnMatrixTopLeftY + (currentAuthorPosition *
+                //             _axisColumnPositioningScaleCopy.rangeBand()) +
+                //         padding;
+
+                //Right links were moving a bit left and right. To avoid this jittering this has been done
+                var rowOffset = $('svg' + '#'+ _matrixID + " #Row"+currentAuthorPosition + " .cell").last().offset();
+                rowOffset.left = rowOffset.left - offSetChart.left;
+                rowOffset.top = rowOffset.top - offSetChart.top;
+                
+                xposition = rowOffset.left +  _axisRowPositioningScaleCopy.rangeBand();
+                yposition = rowOffset["top"]+ padding;
+
+                // xposition = drawnMatrixTopLeftX + (_axisRowPositioningScaleCopy.rangeBand() *
+                //         _matrixColumnSize) ;
+                // yposition = rowOffset["top"]+ padding;
                 // return {
                 //     xPos: drawnMatrixTopLeftX + (_axisRowPositioningScaleCopy.rangeBand() *
                 //         _matrixColumnSize) + padding,
@@ -885,11 +978,18 @@ function MatrixVisualization()
             }
             else if ('bottom' == connectionType)
             {
-                xposition = drawnMatrixTopLeftX + (currentAuthorPosition *
-                        _axisRowPositioningScaleCopy.rangeBand()) + padding;
+                // xposition = drawnMatrixTopLeftX + (currentAuthorPosition *
+                //         _axisRowPositioningScaleCopy.rangeBand()) + padding;
+                // yposition = drawnMatrixTopLeftY + (
+                //         _axisColumnPositioningScaleCopy.rangeBand() *
+                //         _matrixRowSize) + padding;
+
+               
+
+                xposition = columnOffset["left"] + padding;
                 yposition = drawnMatrixTopLeftY + (
                         _axisColumnPositioningScaleCopy.rangeBand() *
-                        _matrixRowSize) + padding;
+                        _matrixRowSize);
                 
                 // var wid , hei;
                 // wid = _axisRowPositioningScaleCopy.rangeBand() *_matrixColumnSize;
@@ -906,9 +1006,11 @@ function MatrixVisualization()
             }
             else if ('top' == connectionType)
             {
-                 xposition = drawnMatrixTopLeftX + (currentAuthorPosition *
-                        _axisRowPositioningScaleCopy.rangeBand()) + padding;
-                yposition = parentHolderLeftTopY + padding;
+                //  xposition = drawnMatrixTopLeftX + (currentAuthorPosition *
+                //         _axisRowPositioningScaleCopy.rangeBand()) + padding;
+                // yposition = parentHolderLeftTopY + padding;
+                 xposition = columnOffset["left"]+ padding;
+                yposition = columnOffset["top"];
                 // return {
                 //     xPos: drawnMatrixTopLeftX + (currentAuthorPosition *
                 //         _axisRowPositioningScaleCopy.rangeBand()) + padding,
@@ -2337,8 +2439,9 @@ function MatrixVisualization()
         // console.log(_matrix)
         // chart.printMatrix();
         // console.log("in renderUpdatedMatrix, _rowLabels:",_rowLabels,"_columnLabels",_columnLabels);
-        d3.selectAll('#' + _matrixID).selectAll(".row").data(_matrix).each(
-            updateRowCells)
+        d3.selectAll('#' + _matrixID).selectAll(".row").data(_matrix)
+            .attr("id", function(d,i){return "Row"+i;})
+            .each(updateRowCells)
        
         // d3.select('#' + _matrixID+" #title").text(function(d,i){
         //     console.log(_history+"  d=",d+"i="+i);
@@ -2349,7 +2452,8 @@ function MatrixVisualization()
 
         d3.selectAll('#' + _matrixID).selectAll(".row text").data(
             _matrix).text(function(d, i)
-        {
+        {   
+            // console.log(d,i);
             return _rowLabels[i].name;
         }).style('fill', function(d, i)
         {
@@ -2363,8 +2467,12 @@ function MatrixVisualization()
             }
             return '#505050';
         })
+        d3.selectAll('#' + _matrixID).selectAll(".column")
+                .data(_matrix).attr("id", function(d,i){return "Column"+i;})
+
         d3.selectAll('#' + _matrixID).selectAll(".column text").data(
                 _matrix)
+
             // .data(function(d,i){
             //   // console.log("matrix: ",d);
             //                 // return d["dissimilarityMatrix"][0];

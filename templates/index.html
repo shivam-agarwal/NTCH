@@ -8,19 +8,21 @@
     <meta content="" name="description">
     <meta content="" name="author"><!-- Bootstrap Core CSS -->
     <!-- <link href="static/css/bootstrap.min.css" rel="stylesheet"> -->
-    <!-- <link href="static/css/bootstrap.css" rel="stylesheet"> -->
-    <link href=
+    <link href="static/css/bootstrap.css" rel="stylesheet">
+   <!--  <link href=
     "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"
-    rel="stylesheet">
+    rel="stylesheet"> -->
     <link href="static/css/BootSideMenu.css" rel="stylesheet"><!-- Custom CSS -->
     <link href="static/css/simple-sidebar.css" rel="stylesheet">
 
     <title>NodeTrix-Multiplex</title>
     <meta charset="utf-8">
     <script src="static/js/jquery.js"></script>
-    <script src="static/js/jquery.blockUI.js"></script><!-- <script src="static/js/jquery-ui.js"></script> -->
+    <script src="static/js/jquery.blockUI.js"></script>
 
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="static/js/jquery-ui.js"></script>
+
+    <!-- <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> -->
     <script charset="utf-8" src="static/d3/d3.min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
     <script src="static/js/BootSideMenu.js"></script>
@@ -37,6 +39,9 @@
     <script src="static/lib/tiny-queue.js"></script>
     <script src="static/js/reorder.v1.js"></script>
     <!-- <script src="static/js/matrix.js"></script> -->
+
+    <script src="static/js/render-queue.js"></script>
+
     <style> 
   @import url("static/css/augmentedNodeTrix.css");
     </style>
@@ -223,6 +228,9 @@ $(document).ready(function(){
             <option value="NormLap">Normalized Laplacian</option>   -->
                     </optgroup>
                 </select><br>
+                 <label>
+                    <input id="layer3edge" type="checkbox" name="checkbox"> Show Layer 3 Edges
+                    </label>
                 <!--
         <h2> Matrix Seriation </h2>
         <select name="matrixSeriation" id="matrixSeriation">
@@ -306,6 +314,7 @@ $(document).ready(function(){
     <script>
 $("#menu-toggle").click(function(e) {
     e.preventDefault();
+    visualization.leftSidebarClicked();
     $("#wrapper").toggleClass("toggled");
     });
 
@@ -507,7 +516,7 @@ $("#menu-toggle").click(function(e) {
 
     // Parse and load the diss/adj data sets.
 
-    var dissMatrix, adjMatrix, adjMatrixUnweighted, adjMatrixPow2, dissAdjMatrix, adjWithDissimilarity, laplacianMatrix, normLaplacianMatrix, alpha= .5, DissimilarityMatrices, AdjacencyMatrices, edgeList, eigenMatricesData;
+    var dissMatrix, adjMatrix, adjMatrixUnweighted, adjMatrixPow2, dissAdjMatrix, adjWithDissimilarity, laplacianMatrix, normLaplacianMatrix, alpha= .5, DissimilarityMatrices, AdjacencyMatrices, edgeList, edgeList_layer3,  eigenMatricesData;
 
     // var adjacencyMatrices;
 
@@ -521,6 +530,8 @@ $("#menu-toggle").click(function(e) {
     // var datasetName = 'cora_nodetrix/';
     var datasetName = 'infovis/';
     // var datasetName = 'morenodestest/';
+    // var datasetName = 'infovis_community_size_constraint/';
+    // var datasetName = 'infovis_all/';
     // var datasetName = 'a/';
     // var datasetName = 'freeassoc/';    //POS data
      // var datasetName = 'cora_classification/';
@@ -567,8 +578,21 @@ $("#menu-toggle").click(function(e) {
                               return row.map(function(value) { return +value; });
                             });
                               // console.log(data);
+                               d3.text('static/dataSets/'+datasetName+'layer3edges.csv', function(text1) 
+                              {
+                                var data1 = d3.csv.parseRows(text1).map(function(row1) 
+                                {
+                                  return row1.map(function(value) { return +value; });
+                                });
+                                  // console.log(data);
 
-                              edgeList = [];
+                                  edgeList_layer3 = [];
+                                  for (var i=0;i<data1.length; i++)
+                                  {
+                                    temp = {src: parseInt(data1[i][0]), dst: parseInt(data1[i][1]), cnt:parseInt(data1[i][2])};
+                                    edgeList_layer3.push(temp);
+                                  }
+                                  edgeList = [];
                               for (var i=0;i<data.length; i++)
                               {
                                 temp = {src: parseInt(data[i][0]), dst: parseInt(data[i][1]), cnt:parseInt(data[i][2])};
@@ -591,7 +615,11 @@ $("#menu-toggle").click(function(e) {
                                                         $("#wrapper").toggleClass("toggled");
 
                             })
-          });
+                              });
+
+
+                              
+              });
 
           });
 
@@ -915,6 +943,8 @@ window.focusSidebarRefreshIdArray = ["clusterOptions", "sidebar-filter"];
             <option value="NormLap">Normalized Laplacian</option>   -->
                     </optgroup>
                 </select><br>
+
+
                 <!--
         <h2> Matrix Seriation </h2>
         <select name="matrixSeriation" id="matrixSeriation">
@@ -1001,6 +1031,10 @@ window.focusSidebarRefreshIdArray = ["clusterOptions", "sidebar-filter"];
 
       </optgroup>
     </select>
+     <label>
+    <input id="layer3edge_focus" type="checkbox" name="checkbox"> Show Layer 3 Edges
+    </label>
+    
     <!-- //Shivam -->
     <!--   <h2> Co-Author Link Prediction </h2>
     <select name="link" id="link-prediction">

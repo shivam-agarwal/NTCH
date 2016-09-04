@@ -11,10 +11,17 @@ function AugmentedNodeTrix(chartContainerID)
     var _focusNodeToFreeze = false;
     // var _overAllEdgeList = [{src:74,dst:13,cnt: 9},{src:74,dst:147,cnt: 7},{src:13,dst:147,cnt: 8},{src:110,dst:81,cnt: 2},{src:3,dst:79,cnt: 1},{src:3,dst:86,cnt: 1},{src:3,dst:131,cnt: 1},{src:79,dst:86,cnt: 1},{src:79,dst:131,cnt: 1},{src:86,dst:131,cnt: 1},{src:109,dst:110,cnt: 1},{src:109,dst:81,cnt: 4},{src:68,dst:142,cnt: 1},{src:68,dst:81,cnt: 1},{src:142,dst:81,cnt: 1},{src:80,dst:137,cnt: 1},{src:41,dst:58,cnt: 1},{src:41,dst:129,cnt: 1},{src:41,dst:74,cnt: 1},{src:58,dst:129,cnt: 1},{src:58,dst:74,cnt: 3},{src:129,dst:74,cnt: 1},{src:81,dst:88,cnt: 1},{src:2,dst:73,cnt: 2},{src:2,dst:45,cnt: 1},{src:2,dst:91,cnt: 1},{src:45,dst:91,cnt: 1},{src:2,dst:14,cnt: 1},{src:2,dst:16,cnt: 1},{src:14,dst:16,cnt: 2},{src:14,dst:73,cnt: 3},{src:16,dst:73,cnt: 4},{src:63,dst:74,cnt: 3},{src:10,dst:146,cnt: 1},{src:83,dst:81,cnt: 1},{src:17,dst:63,cnt: 2},{src:3,dst:82,cnt: 3},{src:67,dst:13,cnt: 1},{src:67,dst:147,cnt: 1},{src:6,dst:32,cnt: 1},{src:6,dst:42,cnt: 1},{src:6,dst:56,cnt: 1},{src:6,dst:63,cnt: 1},{src:6,dst:147,cnt: 1},{src:6,dst:74,cnt: 1},{src:6,dst:13,cnt: 1},{src:32,dst:42,cnt: 1},{src:32,dst:56,cnt: 1},{src:32,dst:63,cnt: 1},{src:32,dst:147,cnt: 1},{src:32,dst:74,cnt: 1},{src:32,dst:13,cnt: 1},{src:42,dst:56,cnt: 1},{src:42,dst:63,cnt: 1},{src:42,dst:147,cnt: 1},{src:42,dst:74,cnt: 1},{src:42,dst:13,cnt: 1},{src:56,dst:63,cnt: 1},{src:56,dst:147,cnt: 1},{src:56,dst:74,cnt: 1},{src:56,dst:13,cnt: 1},{src:63,dst:147,cnt: 1},{src:63,dst:13,cnt: 1},{src:14,dst:46,cnt: 1},{src:16,dst:46,cnt: 1},{src:46,dst:73,cnt: 2},{src:55,dst:77,cnt: 1},{src:109,dst:144,cnt: 1},{src:82,dst:146,cnt: 1},{src:17,dst:58,cnt: 1},{src:58,dst:63,cnt: 3},{src:89,dst:74,cnt: 1},{src:89,dst:147,cnt: 1},{src:5,dst:58,cnt: 3},{src:5,dst:63,cnt: 1},{src:54,dst:58,cnt: 1},{src:54,dst:108,cnt: 1},{src:54,dst:42,cnt: 1},{src:58,dst:108,cnt: 1},{src:58,dst:42,cnt: 1},{src:108,dst:42,cnt: 1},{src:48,dst:70,cnt: 1},{src:48,dst:92,cnt: 1},{src:48,dst:102,cnt: 1},{src:48,dst:81,cnt: 1},{src:70,dst:92,cnt: 1},{src:70,dst:102,cnt: 1},{src:70,dst:81,cnt: 1},{src:92,dst:102,cnt: 1},{src:92,dst:81,cnt: 1},{src:102,dst:81,cnt: 3},{src:91,dst:133,cnt: 1},{src:15,dst:18,cnt: 2},{src:15,dst:60,cnt: 2},{src:15,dst:143,cnt: 2},{src:15,dst:145,cnt: 2},{src:15,dst:139,cnt: 2},{src:18,dst:60,cnt: 3},{src:18,dst:143,cnt: 2},{src:18,dst:145,cnt: 2},{src:18,dst:139,cnt: 5},{src:60,dst:143,cnt: 2},{src:60,dst:145,cnt: 2},{src:60,dst:139,cnt: 3},{src:143,dst:145,cnt: 2},{src:143,dst:139,cnt: 2},{src:145,dst:139,cnt: 2},{src:66,dst:141,cnt: 3},{src:66,dst:81,cnt: 2},{src:141,dst:81,cnt: 2},{src:42,dst:103,cnt: 1},{src:8,dst:12,cnt: 1},{src:8,dst:27,cnt: 1},{src:8,dst:134,cnt: 1},{src:8,dst:82,cnt: 1},{src:12,dst:27,cnt: 1},{src:12,dst:134,cnt: 1},{src:12,dst:82,cnt: 1},{src:27,dst:134,cnt: 1},{src:27,dst:82,cnt: 1},{src:134,dst:82,cnt: 1},{src:16,dst:39,cnt: 1},{src:39,dst:73,cnt: 2},{src:1,dst:11,cnt: 1},{src:1,dst:19,cnt: 1},{src:1,dst:28,cnt: 1},{src:1,dst:49,cnt: 1},{src:1,dst:59,cnt: 1},{src:1,dst:101,cnt: 1},{src:1,dst:111,cnt: 1},{src:11,dst:19,cnt: 2},{src:11,dst:28,cnt: 3},{src:11,dst:49,cnt: 3},{src:11,dst:59,cnt: 1},{src:11,dst:101,cnt: 1},{src:11,dst:111,cnt: 1},{src:19,dst:28,cnt: 2},{src:19,dst:49,cnt: 2},{src:19,dst:59,cnt: 1},{src:19,dst:101,cnt: 1},{src:19,dst:111,cnt: 1},{src:28,dst:49,cnt: 4},{src:28,dst:59,cnt: 1},{src:28,dst:101,cnt: 1},{src:28,dst:111,cnt: 1},{src:49,dst:59,cnt: 1},{src:49,dst:101,cnt: 1},{src:49,dst:111,cnt: 1},{src:59,dst:101,cnt: 1},{src:59,dst:111,cnt: 1},{src:101,dst:111,cnt: 1},{src:46,dst:71,cnt: 1},{src:71,dst:73,cnt: 1},{src:52,dst:72,cnt: 1},{src:52,dst:74,cnt: 1},{src:72,dst:74,cnt: 1},{src:5,dst:13,cnt: 1},{src:5,dst:64,cnt: 1},{src:5,dst:139,cnt: 2},{src:5,dst:74,cnt: 1},{src:13,dst:58,cnt: 1},{src:13,dst:64,cnt: 1},{src:13,dst:139,cnt: 1},{src:58,dst:64,cnt: 1},{src:58,dst:139,cnt: 2},{src:64,dst:139,cnt: 1},{src:64,dst:74,cnt: 1},{src:139,dst:74,cnt: 2},{src:11,dst:40,cnt: 1},{src:11,dst:47,cnt: 1},{src:11,dst:51,cnt: 1},{src:11,dst:84,cnt: 1},{src:11,dst:105,cnt: 1},{src:28,dst:40,cnt: 1},{src:28,dst:47,cnt: 1},{src:28,dst:51,cnt: 1},{src:28,dst:84,cnt: 1},{src:28,dst:105,cnt: 2},{src:40,dst:47,cnt: 1},{src:40,dst:49,cnt: 1},{src:40,dst:51,cnt: 1},{src:40,dst:84,cnt: 1},{src:40,dst:105,cnt: 1},{src:47,dst:49,cnt: 1},{src:47,dst:51,cnt: 1},{src:47,dst:84,cnt: 1},{src:47,dst:105,cnt: 1},{src:49,dst:51,cnt: 1},{src:49,dst:84,cnt: 1},{src:49,dst:105,cnt: 1},{src:51,dst:84,cnt: 1},{src:51,dst:105,cnt: 1},{src:84,dst:105,cnt: 1},{src:3,dst:21,cnt: 1},{src:3,dst:33,cnt: 1},{src:3,dst:69,cnt: 1},{src:21,dst:33,cnt: 1},{src:21,dst:69,cnt: 1},{src:21,dst:82,cnt: 1},{src:33,dst:69,cnt: 1},{src:33,dst:82,cnt: 1},{src:69,dst:82,cnt: 1},{src:75,dst:146,cnt: 1},{src:90,dst:146,cnt: 1},{src:29,dst:37,cnt: 1},{src:29,dst:44,cnt: 1},{src:29,dst:128,cnt: 1},{src:29,dst:135,cnt: 1},{src:29,dst:147,cnt: 1},{src:37,dst:44,cnt: 1},{src:37,dst:128,cnt: 1},{src:37,dst:135,cnt: 1},{src:37,dst:147,cnt: 1},{src:44,dst:128,cnt: 1},{src:44,dst:135,cnt: 1},{src:44,dst:147,cnt: 1},{src:128,dst:135,cnt: 1},{src:128,dst:147,cnt: 1},{src:135,dst:147,cnt: 1},{src:72,dst:148,cnt: 1},{src:81,dst:74,cnt: 1},{src:81,dst:13,cnt: 1},{src:9,dst:102,cnt: 2},{src:25,dst:28,cnt: 1},{src:25,dst:50,cnt: 1},{src:28,dst:50,cnt: 1},{src:104,dst:81,cnt: 1},{src:20,dst:31,cnt: 1},{src:20,dst:82,cnt: 1},{src:31,dst:82,cnt: 1},{src:65,dst:85,cnt: 1},{src:7,dst:4,cnt: 1},{src:43,dst:82,cnt: 1},{src:43,dst:81,cnt: 2},{src:82,dst:81,cnt: 1},{src:0,dst:36,cnt: 1},{src:0,dst:113,cnt: 1},{src:0,dst:81,cnt: 1},{src:36,dst:113,cnt: 1},{src:36,dst:81,cnt: 1},{src:113,dst:81,cnt: 1},{src:26,dst:65,cnt: 1},{src:26,dst:72,cnt: 1},{src:65,dst:72,cnt: 1},{src:16,dst:57,cnt: 1},{src:57,dst:73,cnt: 1},{src:18,dst:22,cnt: 2},{src:22,dst:60,cnt: 1},{src:22,dst:139,cnt: 2},{src:72,dst:78,cnt: 1},{src:102,dst:132,cnt: 1},{src:132,dst:81,cnt: 1},{src:52,dst:87,cnt: 1},{src:52,dst:106,cnt: 1},{src:52,dst:107,cnt: 1},{src:87,dst:106,cnt: 1},{src:87,dst:107,cnt: 1},{src:106,dst:107,cnt: 1},{src:30,dst:102,cnt: 1},{src:30,dst:81,cnt: 1},{src:61,dst:76,cnt: 1},{src:61,dst:80,cnt: 1},{src:61,dst:13,cnt: 1},{src:76,dst:80,cnt: 1},{src:76,dst:13,cnt: 1},{src:80,dst:13,cnt: 1},{src:118,dst:119,cnt: 1},{src:118,dst:126,cnt: 2},{src:118,dst:46,cnt: 1},{src:119,dst:126,cnt: 1},{src:119,dst:46,cnt: 1},{src:126,dst:46,cnt: 2},{src:127,dst:138,cnt: 1},{src:24,dst:99,cnt: 1},{src:24,dst:100,cnt: 1},{src:24,dst:77,cnt: 1},{src:99,dst:100,cnt: 1},{src:99,dst:77,cnt: 1},{src:100,dst:77,cnt: 1},{src:53,dst:95,cnt: 1},{src:53,dst:114,cnt: 1},{src:53,dst:115,cnt: 1},{src:53,dst:116,cnt: 1},{src:53,dst:123,cnt: 1},{src:53,dst:125,cnt: 1},{src:53,dst:126,cnt: 1},{src:95,dst:114,cnt: 1},{src:95,dst:115,cnt: 1},{src:95,dst:116,cnt: 1},{src:95,dst:123,cnt: 1},{src:95,dst:125,cnt: 1},{src:95,dst:126,cnt: 1},{src:114,dst:115,cnt: 1},{src:114,dst:116,cnt: 1},{src:114,dst:123,cnt: 1},{src:114,dst:125,cnt: 1},{src:114,dst:126,cnt: 1},{src:115,dst:116,cnt: 1},{src:115,dst:123,cnt: 1},{src:115,dst:125,cnt: 1},{src:115,dst:126,cnt: 1},{src:116,dst:123,cnt: 1},{src:116,dst:125,cnt: 1},{src:116,dst:126,cnt: 1},{src:123,dst:125,cnt: 1},{src:123,dst:126,cnt: 1},{src:125,dst:126,cnt: 1},{src:124,dst:139,cnt: 1},{src:124,dst:22,cnt: 1},{src:124,dst:18,cnt: 1},{src:34,dst:118,cnt: 1},{src:34,dst:126,cnt: 1},{src:46,dst:72,cnt: 1},{src:140,dst:127,cnt: 1},{src:38,dst:82,cnt: 1},{src:77,dst:117,cnt: 1},{src:77,dst:147,cnt: 1},{src:117,dst:147,cnt: 1},{src:35,dst:39,cnt: 1},{src:35,dst:73,cnt: 1},{src:35,dst:120,cnt: 1},{src:39,dst:120,cnt: 1},{src:73,dst:120,cnt: 1},{src:57,dst:98,cnt: 1},{src:57,dst:121,cnt: 1},{src:98,dst:121,cnt: 1},{src:62,dst:94,cnt: 1},{src:62,dst:130,cnt: 1},{src:62,dst:42,cnt: 1},{src:94,dst:130,cnt: 1},{src:94,dst:42,cnt: 1},{src:130,dst:42,cnt: 1},{src:96,dst:104,cnt: 2},{src:96,dst:112,cnt: 1},{src:104,dst:112,cnt: 1},{src:96,dst:97,cnt: 1},{src:97,dst:104,cnt: 1},{src:72,dst:127,cnt: 1},{src:82,dst:102,cnt: 1},{src:82,dst:122,cnt: 1},{src:102,dst:122,cnt: 1},{src:105,dst:13,cnt: 1},{src:4,dst:28,cnt: 1},{src:4,dst:49,cnt: 1},{src:93,dst:81,cnt: 1},{src:93,dst:136,cnt: 1},{src:23,dst:72,cnt: 1}]
     var _overAllEdgeList = window.edgeList;
+    var _edgeList_layer3 = window.edgeList_layer3;
+    var _shortlistedEdgeList_layer3 = [];
+    var _layer3_Edges_ByMatrices = [];
+
     var _shortlistedEdgeList=[];
     var _shortlistedEdgeListByMatrices = [];
     var _tickTimer;
     var _tickFlag=false;
+    var _showLayer3Edge = true;
+
+
     // Original data set ordering
     //var _overAllLabelsList                    = [{name: "Callahan",id: 0},{name: "Su",id: 1},{name: "Goldstein",id: 2},{name: "Hollan",id: 3},{name: "Landay",id: 4},{name: "Pitkow",id: 5},{name: "Pedersen",id: 6},{name: "Hong",id: 7},{name: "Stewart",id: 8},{name: "Fekete",id: 9},{name: "Zacks",id: 10},{name: "Aiken",id: 11},{name: "Hollan",id: 12},{name: "Mackinlay",id: 13},{name: "Mattis",id: 14},{name: "Carlis",id: 15},{name: "Kolojejchick",id: 16},{name: "Lamping",id: 17},{name: "Riedl",id: 18},{name: "Chen",id: 19},{name: "Meyer",id: 20},{name: "Helfman",id: 21},{name: "Konstan",id: 22},{name: "Steffen",id: 23},{name: "Claffy",id: 24},{name: "Kuchinsky",id: 25},{name: "Wilks",id: 26},{name: "Druin",id: 27},{name: "Woodruff",id: 28},{name: "Larson",id: 29},{name: "Doan",id: 30},{name: "Good",id: 31},{name: "Masinter",id: 32},{name: "Ring",id: 33},{name: "Derthick",id: 34},{name: "Moore",id: 35},{name: "Weiser",id: 36},{name: "Dantzich",id: 37},{name: "Boltman",id: 38},{name: "Derthick",id: 39},{name: "Lin",id: 40},{name: "Stefik",id: 41},{name: "Hearst",id: 42},{name: "Wattenberg",id: 43},{name: "Czerwinski",id: 44},{name: "Goldberg",id: 45},{name: "Chuah",id: 46},{name: "Chu",id: 47},{name: "Rose",id: 48},{name: "Stonebraker",id: 49},{name: "Baldonado",id: 50},{name: "Spalding",id: 51},{name: "Gershon",id: 52},{name: "Lucas",id: 53},{name: "Schank",id: 54},{name: "Burchard",id: 55},{name: "Halvorsen",id: 56},{name: "Lucas",id: 57},{name: "Pirolli",id: 58},{name: "Wisnovsky",id: 59},{name: "Barry",id: 60},{name: "Zellweger",id: 61},{name: "Dhamija",id: 62},{name: "Rao",id: 63},{name: "Gossweiler",id: 64},{name: "Becker",id: 65},{name: "Beigel",id: 66},{name: "DeLine",id: 67},{name: "Botafogo",id: 68},{name: "Hightower",id: 69},{name: "Widoff",id: 70},{name: "Kerpedjiev",id: 71},{name: "Eick",id: 72},{name: "Roth",id: 73},{name: "Card",id: 74},{name: "Jul",id: 75},{name: "Igarashi",id: 76},{name: "Munzner",id: 77},{name: "Ball",id: 78},{name: "McCandless",id: 79},{name: "Chang",id: 80},{name: "Shneiderman",id: 81},{name: "Bederson",id: 82},{name: "Jain",id: 83},{name: "Ercegovac",id: 84},{name: "Cleveland",id: 85},{name: "Hill",id: 86},{name: "Ruh",id: 87},{name: "Weiland",id: 88},{name: "York",id: 89},{name: "Zhang",id: 90},{name: "Myers",id: 91},{name: "Milash",id: 92},{name: "Johnson",id: 93},{name: "Yee",id: 94},{name: "Senn",id: 95},{name: "Conklin",id: 96},{name: "Prabhakar",id: 97},{name: "Higgins",id: 98},{name: "Fenner",id: 99},{name: "Hoffman",id: 100},{name: "Paxson",id: 101},{name: "Plaisant",id: 102},{name: "Karadi",id: 103},{name: "North",id: 104},{name: "Olston",id: 105},{name: "Winstead",id: 106},{name: "Levasseur",id: 107},{name: "Diehl",id: 108},{name: "Ahlberg",id: 109},{name: "Williamson",id: 110},{name: "Taylor",id: 111},{name: "Saini",id: 112},{name: "Hopkins",id: 113},{name: "Kolojechick",id: 114},{name: "Dunmire",id: 115},{name: "Gomberg",id: 116},{name: "Guimbretiere",id: 117},{name: "Kolojejchick",id: 118},{name: "Mattis",id: 119},{name: "Harrison",id: 120},{name: "Senn",id: 121},{name: "Grosjean",id: 122},{name: "Burks",id: 123},{name: "Barry",id: 124},{name: "Stroffolino",id: 125},{name: "Roth",id: 126},{name: "Keahey",id: 127},{name: "Robbins",id: 128},{name: "Russell",id: 129},{name: "Fisher",id: 130},{name: "Wroblewski",id: 131},{name: "Carr",id: 132},{name: "Kosbie",id: 133},{name: "Proft",id: 134},{name: "Thiel",id: 135},{name: "Turo",id: 136},{name: "Ungar",id: 137},{name: "Robertson",id: 138},{name: "Chi",id: 139},{name: "Robertson",id: 140},{name: "Tanin",id: 141},{name: "Rivlin",id: 142},{name: "Shoop",id: 143},{name: "Wistrand",id: 144},{name: "Retzel",id: 145},{name: "Furnas",id: 146},{name: "Robertson",id: 147},{name: "Wills",id: 148}]
     // Ordering of names based on pre clustered dataset
@@ -37,10 +44,24 @@ function AugmentedNodeTrix(chartContainerID)
     AugmentedNodeTrix._beta = 1.0;
     AugmentedNodeTrix._LABColorSpace = false;
 
+    var render = renderQueue(drawPath2)
+                    .rate(30)
+                    .clear(function(){
+                        d3.selectAll('#' + AugmentedNodeTrix._parentID +
+                        ' .bezierCurves').remove();
+                      });
+    var render_layer3 = renderQueue(drawPath_Multilayer2)
+                        .rate(30)
+                        .clear(function(){
+                            d3.selectAll('#' + AugmentedNodeTrix._parentID +
+                            ' .layer3').remove();
+                          });
     function chart()
     {
         return this;
     }
+
+   
     testingShape = function(index)
     {
         d3.select("#matrix" + index + " .parentGroup").remove();
@@ -112,11 +133,13 @@ function AugmentedNodeTrix(chartContainerID)
         //Shivam-To correct right arrow behavior
           rightSidebarToggler();
 
+        // rerenderMultilayerPaths1(_focusNodeIndex);  
         _chart[_focusNodeIndex].focusNode();
         return this;
     }
     chart.deFocusNode = function()
     {
+
         if (_focusNodeIndex != -1)
         {
             if ($("#test2").attr("data-status") == "opened")
@@ -134,6 +157,8 @@ function AugmentedNodeTrix(chartContainerID)
             else console.log(
                 "ERROR: focussed node index is not recorded");
             _focusNodeIndex = -1;
+
+            // removeMultilayerPaths(_focusNodeIndex);
         }
         return this;
     }
@@ -440,7 +465,7 @@ function AugmentedNodeTrix(chartContainerID)
     }
     function populateSidebar(index)
     {
-        console.log($("#test2.container.sidebar.sidebar-right").find(".toggler"));
+        // console.log($("#test2.container.sidebar.sidebar-right").find(".toggler"));
         if ($("#test2").attr("data-status") == "closed")
         {
             $("#test2.container.sidebar.sidebar-right").find(".toggler").show();
@@ -477,6 +502,8 @@ function AugmentedNodeTrix(chartContainerID)
                     // visualization.updateColorSpace('')
                 }
             });
+
+           
 
             // No need of complement matrix operation now
 
@@ -583,6 +610,25 @@ function AugmentedNodeTrix(chartContainerID)
               {   
                   visualization.similarityMatrices(ui.item.value, index);
               }
+            });
+
+             $('#layer3edge_focus').mousedown(function()
+            {
+                console.log(_focusNodeIndex);
+                if (!$(this).is(':checked'))
+                {
+                    _chart[_focusNodeIndex].rerenderMultilayerPaths(_focusNodeIndex);
+                    // _showLayer3Edge = true;
+                    // rerenderMultilayerPaths();
+                    // render_layer3(_shortlistedEdgeList_layer3);
+                }
+                else
+                {
+                     _chart[_focusNodeIndex].removeMultilayerPaths(_focusNodeIndex);
+                    // _showLayer3Edge = false;
+                    // // visualization.updateColorSpace('')
+                    // removeMultilayerPaths();
+                }
             });
 
              $( "#link-prediction" ).selectmenu({
@@ -1026,6 +1072,7 @@ function AugmentedNodeTrix(chartContainerID)
         {
             var id1 = _overAllEdgeList[k].src;
             var id2 = _overAllEdgeList[k].dst;
+            var weight = _overAllEdgeList[k].cnt;
             for (i = 0; i < _piecewiseDatasetMatrix.length; ++i)
             {
                 for (j = i; j < _piecewiseDatasetMatrix.length; ++j)
@@ -1039,20 +1086,24 @@ function AugmentedNodeTrix(chartContainerID)
                             "m1":i,
                             "m2":j,
                             "id1":id1,
-                            "id2":id2
+                            "id2":id2,
+                            "weight": weight
                         });
                         _shortlistedEdgeListByMatrices[i].push({
                             "m1":i,
                             "m2":j,
                             "id1":id1,
-                            "id2":id2
+                            "id2":id2,
+                            "weight": weight
                         
                             });
                         _shortlistedEdgeListByMatrices[j].push({
                             "m1":i,
                             "m2":j,
                             "id1":id1,
-                            "id2":id2
+                            "id2":id2,
+                            "weight": weight
+
                         
                             });
 
@@ -1065,20 +1116,23 @@ function AugmentedNodeTrix(chartContainerID)
                             "m1":i,
                             "m2":j,
                             "id1":id2,
-                            "id2":id1
+                            "id2":id1,
+                            "weight": weight
                         });
                          _shortlistedEdgeListByMatrices[i].push({
                             "m1":i,
                             "m2":j,
                             "id1":id2,
-                            "id2":id1
+                            "id2":id1,
+                            "weight": weight
                         
                             });
                         _shortlistedEdgeListByMatrices[j].push({
                             "m1":i,
                             "m2":j,
                             "id1":id2,
-                            "id2":id1
+                            "id2":id1,
+                            "weight": weight
                         
                             });
 
@@ -1095,8 +1149,111 @@ function AugmentedNodeTrix(chartContainerID)
 
         // }
         // console.log("total edges: ", countingedges);
-    }           
+    }      
 
+    chart.shortlistEdgesBetweenMatricesMultilayer = function(_overAllEdgeList)
+    {
+        _layer3_Edges_ByMatrices = new Array(_piecewiseDatasetMatrix.lenth);
+
+        for(var i=0; i<_piecewiseDatasetMatrix.length;i++)
+            _layer3_Edges_ByMatrices[i] = [];
+
+        for (var k = 0; k < _overAllEdgeList.length; ++k)
+        {
+            var id1 = _overAllEdgeList[k].src;
+            var id2 = _overAllEdgeList[k].dst;
+            for (i = 0; i < _piecewiseDatasetMatrix.length; ++i)
+            {
+                for (j = i; j < _piecewiseDatasetMatrix.length; ++j)
+                {
+                    // If paths are between two differnt matrics, draw them
+                    if (i != j && _chart[i].hasID(id1) && _chart[j].hasID(
+                        id2))
+                    {
+                        // drawPath(i, j, id1, id2)
+                        _shortlistedEdgeList_layer3.push({
+                            "m1":i,
+                            "m2":j,
+                            "id1":id1,
+                            "id2":id2
+                        });
+                        _layer3_Edges_ByMatrices[i].push({
+                            "m1":i,
+                            "m2":j,
+                            "id1":id1,
+                            "id2":id2
+                        
+                            });
+                        _layer3_Edges_ByMatrices[j].push({
+                            "m1":i,
+                            "m2":j,
+                            "id1":id1,
+                            "id2":id2
+                        
+                            });
+
+                    }
+                    else if (i != j && _chart[i].hasID(id2) && _chart[j]
+                        .hasID(id1))
+                    {
+                        // drawPath(i, j, id2, id1)
+                        _shortlistedEdgeList_layer3.push({
+                            "m1":i,
+                            "m2":j,
+                            "id1":id2,
+                            "id2":id1
+                        });
+                         _layer3_Edges_ByMatrices[i].push({
+                            "m1":i,
+                            "m2":j,
+                            "id1":id2,
+                            "id2":id1
+                        
+                            });
+                        _layer3_Edges_ByMatrices[j].push({
+                            "m1":i,
+                            "m2":j,
+                            "id1":id2,
+                            "id2":id1
+                        
+                            });
+
+                    }
+                }
+            }
+        }
+        // console.log("_overAllEdgeList: ",_overAllEdgeList, ", _shortlistedEdgeList: ",_shortlistedEdgeList, "_shortlistedEdgeListByMatrices",_shortlistedEdgeListByMatrices);
+
+        // var countingedges=0;
+        // for(var i=0;i<_shortlistedEdgeListByMatrices.length;i++)
+        // {
+        //     countingedges += _shortlistedEdgeListByMatrices[i].length;
+
+        // }
+        // console.log("total edges: ", countingedges);
+    }           
+    chart.leftSidebarClicked = function()
+    {
+        if (_showLayer3Edge)
+        {
+            $("#layer3edge").attr("checked", "true");
+        }
+        $('#layer3edge').mousedown(function()
+            {
+                if (!$(this).is(':checked'))
+                {
+                    _showLayer3Edge = true;
+                    rerenderMultilayerPaths();
+                    // render_layer3(_shortlistedEdgeList_layer3);
+                }
+                else
+                {
+                    _showLayer3Edge = false;
+                    // visualization.updateColorSpace('')
+                    removeMultilayerPaths();
+                }
+            });
+    }
 
     chart.renderAugmentedNodetrix = function()
     {
@@ -1188,11 +1345,12 @@ function AugmentedNodeTrix(chartContainerID)
            // for (var i = 0; i < _piecewiseDatasetMatrix.length; ++i) _chart[i].renderUpdatedMatrix();
             // topParent.attr("transform", " scale(" + d3.event.scale + ")");
             // var newSelection = $('#' + _chartContainerID+ ' svg g :not(.bezierCurves)');
-            
+            render.invalidate();
+            render_layer3.invalidate();
             container.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
             AugmentedNodeTrix.globalScaleFactor = d3.event.scale.toFixed(1);  //to avoid long decimal calculations
 
-            console.log(AugmentedNodeTrix.globalScaleFactor);
+            // console.log(AugmentedNodeTrix.globalScaleFactor);
             // topParent.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
             // $(".bezierCurves").attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
             for (var i = 0; i < _piecewiseDatasetMatrix.length; ++i) _chart[i].reCalculateSize();
@@ -1215,6 +1373,9 @@ function AugmentedNodeTrix(chartContainerID)
             //     $("#test2.container.sidebar.sidebar-right").find(
             //             ".toggler").trigger("click");
             //  }
+
+            //Defocus any previous selected node
+            visualization.deFocusNode();
             populateSidebar(index);
 
             visualization.focusNode(index);
@@ -1268,6 +1429,7 @@ function AugmentedNodeTrix(chartContainerID)
         // Start rendering the visualization  
 
         chart.shortlistEdgesBetweenMatrices();
+        chart.shortlistEdgesBetweenMatricesMultilayer(_edgeList_layer3);
 
         force.start();
 
@@ -1290,10 +1452,10 @@ function AugmentedNodeTrix(chartContainerID)
               return a - b;
             });
 
-        console.log(xpositionsofmatrices, ypositionsofmatrices);
+        // console.log(xpositionsofmatrices, ypositionsofmatrices);
         var centerx = (xpositionsofmatrices[xpositionsofmatrices.length-1] - xpositionsofmatrices[0])/2  ;
         var centery = (ypositionsofmatrices[ypositionsofmatrices.length-1] - ypositionsofmatrices[0])/2  ;
-        console.log(centerx, centery);
+        // console.log(centerx, centery);
         // container.attr("transform", "translate("+centerx+","+centery+")");
         //To redraw when starting at a different zoom level than 1
         // container.attr("transform", "translate("+centerx+","+centery+") scale("+AugmentedNodeTrix.globalScaleFactor+")");
@@ -1326,6 +1488,7 @@ function AugmentedNodeTrix(chartContainerID)
         // if(_tickFlag==true)
             // _tickTimer = setTimeout(function(){ _tickFlag = false; tick(); }, 100);
         tick1(i); 
+        // rerenderMultilayerPaths(i);
     }
 
     function dragend(d, i)
@@ -1351,74 +1514,151 @@ function AugmentedNodeTrix(chartContainerID)
         // Draw connecting paths whenever a tick happens
         // if(_tickFlag == false)
             reRenderPaths1(matrixId);
+            // if(_showLayer3Edge)
+            rerenderMultilayerPaths1(matrixId);
     }
 
     function tick()
     {
         //
         // console.log("inside tick");
-        nodes.attr("transform", function(d)
-        {
-            // return "translate(" + (d.x * globalScaleFactor)/ 1.3  + "," + (d.y * globalScaleFactor)/ 2 +
-            //     ")";
-            return "translate(" + (d.x )/ 1.3  + "," + (d.y )/ 2 +
-                ")";
-        });
+        // nodes.attr("transform", function(d)
+        // {
+        //     // return "translate(" + (d.x * globalScaleFactor)/ 1.3  + "," + (d.y * globalScaleFactor)/ 2 +
+        //     //     ")";
+        //     // return "translate(" + (d.x )  + "," + (d.y ) + ")";
+        //     return "translate(" + (d.x )/ 1.3  + "," + (d.y )/ 2 + ")";
+        // });
         // Draw connecting paths whenever a tick happens
-        if(_tickFlag == false)
+        // if(_tickFlag == false)
             reRenderPaths();
+            // if(_showLayer3Edge)
+            render_layer3(_shortlistedEdgeList_layer3);
+            for(var i=0; i<_piecewiseDatasetMatrix.length; i++)
+            {   
+                if(_chart[i].getShowLayer3Edges())
+                    _chart[i].rerenderMultilayerPaths(i);
+            }
+
+                // rerenderMultilayerPaths();
     }
+
+    //For context operation fo showing or deleting layer3 edges
+    function removeMultilayerPaths(matrixId)
+    {
+         // d3.selectAll('#' + AugmentedNodeTrix._parentID +
+         //    ' .layer3').attr("opacity",0);
+    }
+    function rerenderMultilayerPaths1(matrixId)
+    {
+        d3.selectAll('#' + AugmentedNodeTrix._parentID +
+           ' .mat'+matrixId + '.layer3').remove();
+       //  // console.log(matrixId);
+
+       // // render_layer3(_shortlistedEdgeList_layer3);
+       //  // console.log(_overAllEdgeList)     ;
+        for (var k = 0; k < _layer3_Edges_ByMatrices[matrixId].length; ++k)
+        {
+            drawPath_Multilayer(_layer3_Edges_ByMatrices[matrixId][k]["m1"], _layer3_Edges_ByMatrices[matrixId][k]["m2"], _layer3_Edges_ByMatrices[matrixId][k]["id1"], _layer3_Edges_ByMatrices[matrixId][k]["id2"]);
+        }
+
+        if(_chart[matrixId].getShowLayer3Edges())
+            _chart[matrixId].rerenderMultilayerPaths(matrixId);
+        
+    }
+
+    //Shivam - moved to matrixvisualization1.js as it will be a focus related task
+    // function removeMultilayerPaths(matrixId)
+    // {
+    //      d3.selectAll('#' + AugmentedNodeTrix._parentID +
+    //         ' .layer3').attr("opacity",0);
+    // }
+    // function rerenderMultilayerPaths1(matrixId)
+    // {
+    //     d3.selectAll('#' + AugmentedNodeTrix._parentID +
+    //        ' .mat'+matrixId + '.layer3').attr("opacity",1);
+    //     // console.log(matrixId);
+
+    //    // render_layer3(_shortlistedEdgeList_layer3);
+    //     // console.log(_overAllEdgeList)     ;
+    //     // for (var k = 0; k < _layer3_Edges_ByMatrices[matrixId].length; ++k)
+    //     // {
+    //     //     drawPath_Multilayer(_layer3_Edges_ByMatrices[matrixId][k]["m1"], _layer3_Edges_ByMatrices[matrixId][k]["m2"], _layer3_Edges_ByMatrices[matrixId][k]["id1"], _layer3_Edges_ByMatrices[matrixId][k]["id2"]);
+    //     // }
+    // }
+
+    function rerenderMultilayerPaths()
+    {
+        // d3.selectAll('#' + AugmentedNodeTrix._parentID +
+        //     ' .layer3').remove();
+        // console.log(matrixId);
+
+       render_layer3(_shortlistedEdgeList_layer3);
+        // console.log(_overAllEdgeList)     ;
+    }
+    // function rerenderMultilayerPaths(matrixId)
+    // {
+    //     d3.selectAll('#' + AugmentedNodeTrix._parentID +
+    //         ' .layer3').remove();
+    //     // console.log(matrixId);
+
+    //     for (var k = 0; k < _layer3_Edges_ByMatrices[matrixId].length; ++k)
+    //     {
+    //         drawPath_Multilayer(_layer3_Edges_ByMatrices[matrixId][k]["m1"], _layer3_Edges_ByMatrices[matrixId][k]["m2"], _layer3_Edges_ByMatrices[matrixId][k]["id1"], _layer3_Edges_ByMatrices[matrixId][k]["id2"]);
+    //     }
+    //     // console.log(_overAllEdgeList)     ;
+    // }
 
     function reRenderPaths1(matrixId)
     {
         d3.selectAll('#' + AugmentedNodeTrix._parentID +
             ' .mat'+matrixId).remove();
-        console.log(matrixId);
+        // console.log(matrixId);
 
         for (var k = 0; k < _shortlistedEdgeListByMatrices[matrixId].length; ++k)
         {
-            drawPath(_shortlistedEdgeListByMatrices[matrixId][k]["m1"], _shortlistedEdgeListByMatrices[matrixId][k]["m2"], _shortlistedEdgeListByMatrices[matrixId][k]["id1"], _shortlistedEdgeListByMatrices[matrixId][k]["id2"]);
+            drawPath(_shortlistedEdgeListByMatrices[matrixId][k]["m1"], _shortlistedEdgeListByMatrices[matrixId][k]["m2"], _shortlistedEdgeListByMatrices[matrixId][k]["id1"], _shortlistedEdgeListByMatrices[matrixId][k]["id2"], _shortlistedEdgeListByMatrices[matrixId][k]["weight"] );
         }
         // console.log(_overAllEdgeList)     ;
     }
 
     function reRenderPaths()
     {
-        d3.selectAll('#' + AugmentedNodeTrix._parentID +
-            ' .bezierCurves').remove();
+     
+        
+        render(_shortlistedEdgeList);
+        render_layer3(_shortlistedEdgeList_layer3);
 
-        //Shivam - optimizing and making a data structure _shortlistedEdgeList
-        // for (var k = 0; k < _overAllEdgeList.length; ++k)
-        // {
-        //     var id1 = _overAllEdgeList[k].src;
-        //     var id2 = _overAllEdgeList[k].dst;
-        //     for (i = 0; i < _piecewiseDatasetMatrix.length; ++i)
-        //     {
-        //         for (j = i; j < _piecewiseDatasetMatrix.length; ++j)
-        //         {
-        //             // If paths are between two differnt matrics, draw them
-        //             if (i != j && _chart[i].hasID(id1) && _chart[j].hasID(
-        //                 id2))
-        //             {
-        //                 drawPath(i, j, id1, id2)
-        //             }
-        //             else if (i != j && _chart[i].hasID(id2) && _chart[j]
-        //                 .hasID(id1))
-        //             {
-        //                 drawPath(i, j, id2, id1)
-        //             }
-        //         }
-        //     }
-        // }
-        for (var k = 0; k < _shortlistedEdgeList.length; ++k)
-        {
-            drawPath(_shortlistedEdgeList[k]["m1"], _shortlistedEdgeList[k]["m2"], _shortlistedEdgeList[k]["id1"], _shortlistedEdgeList[k]["id2"]);
+        for(var i=0; i<_piecewiseDatasetMatrix.length; i++)
+        {   
+            if(_chart[i].getShowLayer3Edges())
+                _chart[i].rerenderMultilayerPaths(i);
         }
+                      
+
         // console.log(_overAllEdgeList)     ;
     }
+    // function generateData()
+    // {
+    //     return _shortlistedEdgeList;
+    // }
 
-    function drawPath(matrixNumber1, matrixNumber2, id1, id2)
+    function drawPath2(datapoint)
     {
+        var matrixNumber1 = datapoint["m1"];
+        var matrixNumber2 = datapoint["m2"];
+        var id1 = datapoint["id1"];
+        var  id2 = datapoint["id2"];
+        var weight = datapoint["weight"];
+
+          nodes.attr("transform", function(d)
+        {
+            // return "translate(" + (d.x * globalScaleFactor)/ 1.3  + "," + (d.y * globalScaleFactor)/ 2 +
+            //     ")";
+            return "translate(" + (d.x )/ 1.3  + "," + (d.y )/ 2 +
+                ")";
+        });
+
         // console.log("id1",id1, "id2",id2); 
         var cellPosition1, cellPosition2;
         // console.log("d3 scale= ", myd3.event.scale);
@@ -1427,6 +1667,10 @@ function AugmentedNodeTrix(chartContainerID)
         //     'path');
          var path = d3.select('#' + AugmentedNodeTrix._parentID ).append(
             'path');
+          path.attr("stroke-width", weight);
+           // path.attr("sourceAuthorId", id1);
+           //  path.attr("destinationAuthorId", id2);
+           // path.attr('class','src'+id1+ ' dest'+id2);
         var drawable = false;
         /*@ToDo - Have some rule which makes sure that nearby matrices have straight lines instead of curves
     if( 
@@ -1446,7 +1690,7 @@ controlPointPadd = 10;*/
                 id1, 'bottom');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'top');
-            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2).attr('d', 'M ' +
+            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2 +' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos +
                     controlPointPadd) + ', ' + cellPosition2.xPos +
@@ -1467,7 +1711,7 @@ controlPointPadd = 10;*/
                 id1, 'right');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'left');
-           path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2).attr('d', 'M ' +
+           path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2 +' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + (cellPosition1.xPos + controlPointPadd) +
                 ' ' + cellPosition1.yPos + ', ' + (cellPosition2.xPos -
@@ -1487,7 +1731,7 @@ controlPointPadd = 10;*/
                 id1, 'top');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'bottom');
-            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2).attr('d', 'M ' +
+            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2+' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos -
                     controlPointPadd) + ', ' + cellPosition2.xPos +
@@ -1504,7 +1748,7 @@ controlPointPadd = 10;*/
                 id1, 'left');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'right');
-            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2).attr('d', 'M ' +
+            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2+' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + (cellPosition1.xPos - controlPointPadd) +
                 ' ' + cellPosition1.yPos + ', ' + (cellPosition2.xPos +
@@ -1519,7 +1763,471 @@ controlPointPadd = 10;*/
                 id1, 'top');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'bottom');
-            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2).attr('d', 'M ' +
+            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2 +' n'+id1+ ' n'+id2).attr('d', 'M ' +
+                cellPosition1.xPos + ' ' + cellPosition1.yPos +
+                ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos -
+                    controlPointPadd) + ', ' + cellPosition2.xPos +
+                ' ' + (cellPosition2.yPos + controlPointPadd) +
+                ',  ' + cellPosition2.xPos + ' ' + cellPosition2.yPos
+            )
+            drawable = true;
+        }
+        controlPointPadd = 175;
+        // controlPointPadd = 10;
+ 
+        if (drawable)
+        {
+            if (AugmentedNodeTrix._currentHighlightedPair.src == id1 ||
+                AugmentedNodeTrix._currentHighlightedPair.src == id2 ||
+                AugmentedNodeTrix._currentHighlightedPair.dst == id1 ||
+                AugmentedNodeTrix._currentHighlightedPair.dst == id2)
+            {
+                path.classed('bezierCurvesHighlighted', true);
+                path.classed('bezierCurvesDeHighlighted', false);
+
+            }
+            else if (AugmentedNodeTrix._currentHighlightedPair.src != -
+                1 && AugmentedNodeTrix._currentHighlightedPair.dst != -
+                1)
+            {
+                // console.log(AugmentedNodeTrix._currentHighlightedPair.src, ", ", AugmentedNodeTrix._currentHighlightedPair.dst);
+                path.classed('bezierCurvesHighlighted', false);
+                path.classed('bezierCurvesDeHighlighted', true);
+            }
+            else
+            {
+                path.classed('bezierCurves', true);
+                path.classed('bezierCurvesHighlighted', false);
+                path.classed('bezierCurvesDeHighlighted', false);
+            }
+        }
+
+
+    }
+    function drawPath_Multilayer2(datapoint)
+    {
+        var matrixNumber1 = datapoint["m1"];
+        var matrixNumber2 = datapoint["m2"];
+        var id1 = datapoint["id1"];
+        var  id2 = datapoint["id2"];
+
+          nodes.attr("transform", function(d)
+        {
+            // return "translate(" + (d.x * globalScaleFactor)/ 1.3  + "," + (d.y * globalScaleFactor)/ 2 +
+            //     ")";
+            return "translate(" + (d.x )/ 1.3  + "," + (d.y )/ 2 +
+                ")";
+        });
+
+        // console.log("id1",id1, "id2",id2); 
+        var cellPosition1, cellPosition2;
+        // console.log("d3 scale= ", myd3.event.scale);
+        var controlPointPadd = 100 * AugmentedNodeTrix.globalScaleFactor;
+        // var path = d3.select('#' + AugmentedNodeTrix._parentID + ' g g').append(
+        //     'path');
+         var path = d3.select('#' + AugmentedNodeTrix._parentID ).append(
+            'path');
+         path.attr("opacity",0);
+
+
+        var drawable = false;
+        /*@ToDo - Have some rule which makes sure that nearby matrices have straight lines instead of curves
+    if( 
+        Math.abs(_chart[ matrixNumber1 ].topLeft().yPos + _chart[ matrixNumber1 ].height() - _chart[ matrixNumber2 ].topLeft().yPos ) < 150 ||
+        Math.abs(_chart[ matrixNumber1 ].topLeft().xPos + _chart[ matrixNumber1 ].width()  - _chart[ matrixNumber2 ].topLeft().xPos ) < 150 ||
+
+        Math.abs(_chart[ matrixNumber2 ].topLeft().yPos + _chart[ matrixNumber2 ].height() - _chart[ matrixNumber1 ].topLeft().yPos ) < 150 ||
+        Math.abs(_chart[ matrixNumber2 ].topLeft().xPos + _chart[ matrixNumber2 ].width()  - _chart[ matrixNumber1 ].topLeft().xPos ) < 150
+    )
+controlPointPadd = 10;*/
+
+        // M1 - M2 ( Top - Bottom )
+        if (_chart[matrixNumber1].topLeft().yPos + _chart[matrixNumber1]
+            .height() < _chart[matrixNumber2].topLeft().yPos)
+        {
+            cellPosition1 = _chart[matrixNumber1].connectingPosition(
+                id1, 'bottom');
+            cellPosition2 = _chart[matrixNumber2].connectingPosition(
+                id2, 'top');
+            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3' +' n'+id1+ ' n'+id2).attr('d', 'M ' +
+                cellPosition1.xPos + ' ' + cellPosition1.yPos +
+                ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos +
+                    controlPointPadd) + ', ' + cellPosition2.xPos +
+                ' ' + (cellPosition2.yPos - controlPointPadd) +
+                ',  ' + cellPosition2.xPos + ' ' + cellPosition2.yPos
+            )
+            drawable = true;
+        }
+        // M1 - M2 ( Left - Right )
+        else if (_chart[matrixNumber1].topLeft().xPos + _chart[
+                matrixNumber1].width() < _chart[matrixNumber2].topLeft()
+            .xPos && _chart[matrixNumber1].topLeft().yPos + _chart[
+                matrixNumber1].height() > _chart[matrixNumber2].topLeft()
+            .yPos && _chart[matrixNumber1].isSquareMAtrix() && _chart[
+                matrixNumber2].isSquareMAtrix())
+        {
+            cellPosition1 = _chart[matrixNumber1].connectingPosition(
+                id1, 'right');
+            cellPosition2 = _chart[matrixNumber2].connectingPosition(
+                id2, 'left');
+           path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+                cellPosition1.xPos + ' ' + cellPosition1.yPos +
+                ' C ' + (cellPosition1.xPos + controlPointPadd) +
+                ' ' + cellPosition1.yPos + ', ' + (cellPosition2.xPos -
+                    controlPointPadd) + ' ' + cellPosition2.yPos +
+                ',  ' + cellPosition2.xPos + ' ' + cellPosition2.yPos
+            )
+            drawable = true;
+        }
+        // M1 - M2 ( Bottom - Top )
+        else if (_chart[matrixNumber1].topLeft().xPos + _chart[
+                matrixNumber1].width() > _chart[matrixNumber2].topLeft()
+            .xPos && _chart[matrixNumber2].topLeft().yPos + _chart[
+                matrixNumber2].height() < _chart[matrixNumber1].topLeft()
+            .yPos)
+        {
+            cellPosition1 = _chart[matrixNumber1].connectingPosition(
+                id1, 'top');
+            cellPosition2 = _chart[matrixNumber2].connectingPosition(
+                id2, 'bottom');
+            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+                cellPosition1.xPos + ' ' + cellPosition1.yPos +
+                ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos -
+                    controlPointPadd) + ', ' + cellPosition2.xPos +
+                ' ' + (cellPosition2.yPos + controlPointPadd) +
+                ',  ' + cellPosition2.xPos + ' ' + cellPosition2.yPos
+            )
+            drawable = true;
+        }
+        // M1 - M2 ( Right - Left )
+        else if (_chart[matrixNumber1].isSquareMAtrix() && _chart[
+            matrixNumber2].isSquareMAtrix())
+        {
+            cellPosition1 = _chart[matrixNumber1].connectingPosition(
+                id1, 'left');
+            cellPosition2 = _chart[matrixNumber2].connectingPosition(
+                id2, 'right');
+            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+                cellPosition1.xPos + ' ' + cellPosition1.yPos +
+                ' C ' + (cellPosition1.xPos - controlPointPadd) +
+                ' ' + cellPosition1.yPos + ', ' + (cellPosition2.xPos +
+                    controlPointPadd) + ' ' + cellPosition2.yPos +
+                ',  ' + cellPosition2.xPos + ' ' + cellPosition2.yPos
+            )
+            drawable = true;
+        }
+        else
+        {
+            cellPosition1 = _chart[matrixNumber1].connectingPosition(
+                id1, 'top');
+            cellPosition2 = _chart[matrixNumber2].connectingPosition(
+                id2, 'bottom');
+            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2+ ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+                cellPosition1.xPos + ' ' + cellPosition1.yPos +
+                ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos -
+                    controlPointPadd) + ', ' + cellPosition2.xPos +
+                ' ' + (cellPosition2.yPos + controlPointPadd) +
+                ',  ' + cellPosition2.xPos + ' ' + cellPosition2.yPos
+            )
+            drawable = true;
+        }
+        controlPointPadd = 175;
+        // controlPointPadd = 10;
+ 
+        if (drawable)
+        {
+            if (AugmentedNodeTrix._currentHighlightedPair.src == id1 ||
+                AugmentedNodeTrix._currentHighlightedPair.src == id2 ||
+                AugmentedNodeTrix._currentHighlightedPair.dst == id1 ||
+                AugmentedNodeTrix._currentHighlightedPair.dst == id2)
+            {
+                path.classed('bezierCurvesHighlighted', true);
+                path.classed('bezierCurvesDeHighlighted', false);
+
+            }
+            else if (AugmentedNodeTrix._currentHighlightedPair.src != -
+                1 && AugmentedNodeTrix._currentHighlightedPair.dst != -
+                1)
+            {
+                // console.log(AugmentedNodeTrix._currentHighlightedPair.src, ", ", AugmentedNodeTrix._currentHighlightedPair.dst);
+                path.classed('bezierCurvesHighlighted', false);
+                path.classed('bezierCurvesDeHighlighted', true);
+            }
+            else
+            {
+                path.classed('bezierCurves', true);
+                path.classed('bezierCurvesHighlighted', false);
+                path.classed('bezierCurvesDeHighlighted', false);
+            }
+        }
+    }
+     function drawPath_Multilayer(matrixNumber1, matrixNumber2, id1, id2)
+    {
+        // var matrixNumber1 = datapoint["m1"];
+        // var matrixNumber2 = datapoint["m2"];
+        // var id1 = datapoint["id1"];
+        // var  id2 = datapoint["id2"];
+
+          nodes.attr("transform", function(d)
+        {
+            // return "translate(" + (d.x * globalScaleFactor)/ 1.3  + "," + (d.y * globalScaleFactor)/ 2 +
+            //     ")";
+            return "translate(" + (d.x )/ 1.3  + "," + (d.y )/ 2 +
+                ")";
+        });
+
+        // console.log("id1",id1, "id2",id2); 
+        var cellPosition1, cellPosition2;
+        // console.log("d3 scale= ", myd3.event.scale);
+        var controlPointPadd = 100 * AugmentedNodeTrix.globalScaleFactor;
+        // var path = d3.select('#' + AugmentedNodeTrix._parentID + ' g g').append(
+        //     'path');
+         var path = d3.select('#' + AugmentedNodeTrix._parentID ).append(
+            'path');
+         path.attr("opacity",0);
+        var drawable = false;
+        /*@ToDo - Have some rule which makes sure that nearby matrices have straight lines instead of curves
+    if( 
+        Math.abs(_chart[ matrixNumber1 ].topLeft().yPos + _chart[ matrixNumber1 ].height() - _chart[ matrixNumber2 ].topLeft().yPos ) < 150 ||
+        Math.abs(_chart[ matrixNumber1 ].topLeft().xPos + _chart[ matrixNumber1 ].width()  - _chart[ matrixNumber2 ].topLeft().xPos ) < 150 ||
+
+        Math.abs(_chart[ matrixNumber2 ].topLeft().yPos + _chart[ matrixNumber2 ].height() - _chart[ matrixNumber1 ].topLeft().yPos ) < 150 ||
+        Math.abs(_chart[ matrixNumber2 ].topLeft().xPos + _chart[ matrixNumber2 ].width()  - _chart[ matrixNumber1 ].topLeft().xPos ) < 150
+    )
+controlPointPadd = 10;*/
+
+        // M1 - M2 ( Top - Bottom )
+        if (_chart[matrixNumber1].topLeft().yPos + _chart[matrixNumber1]
+            .height() < _chart[matrixNumber2].topLeft().yPos)
+        {
+            cellPosition1 = _chart[matrixNumber1].connectingPosition(
+                id1, 'bottom');
+            cellPosition2 = _chart[matrixNumber2].connectingPosition(
+                id2, 'top');
+            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+                cellPosition1.xPos + ' ' + cellPosition1.yPos +
+                ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos +
+                    controlPointPadd) + ', ' + cellPosition2.xPos +
+                ' ' + (cellPosition2.yPos - controlPointPadd) +
+                ',  ' + cellPosition2.xPos + ' ' + cellPosition2.yPos
+            )
+            drawable = true;
+        }
+        // M1 - M2 ( Left - Right )
+        else if (_chart[matrixNumber1].topLeft().xPos + _chart[
+                matrixNumber1].width() < _chart[matrixNumber2].topLeft()
+            .xPos && _chart[matrixNumber1].topLeft().yPos + _chart[
+                matrixNumber1].height() > _chart[matrixNumber2].topLeft()
+            .yPos && _chart[matrixNumber1].isSquareMAtrix() && _chart[
+                matrixNumber2].isSquareMAtrix())
+        {
+            cellPosition1 = _chart[matrixNumber1].connectingPosition(
+                id1, 'right');
+            cellPosition2 = _chart[matrixNumber2].connectingPosition(
+                id2, 'left');
+           path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+                cellPosition1.xPos + ' ' + cellPosition1.yPos +
+                ' C ' + (cellPosition1.xPos + controlPointPadd) +
+                ' ' + cellPosition1.yPos + ', ' + (cellPosition2.xPos -
+                    controlPointPadd) + ' ' + cellPosition2.yPos +
+                ',  ' + cellPosition2.xPos + ' ' + cellPosition2.yPos
+            )
+            drawable = true;
+        }
+        // M1 - M2 ( Bottom - Top )
+        else if (_chart[matrixNumber1].topLeft().xPos + _chart[
+                matrixNumber1].width() > _chart[matrixNumber2].topLeft()
+            .xPos && _chart[matrixNumber2].topLeft().yPos + _chart[
+                matrixNumber2].height() < _chart[matrixNumber1].topLeft()
+            .yPos)
+        {
+            cellPosition1 = _chart[matrixNumber1].connectingPosition(
+                id1, 'top');
+            cellPosition2 = _chart[matrixNumber2].connectingPosition(
+                id2, 'bottom');
+            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+                cellPosition1.xPos + ' ' + cellPosition1.yPos +
+                ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos -
+                    controlPointPadd) + ', ' + cellPosition2.xPos +
+                ' ' + (cellPosition2.yPos + controlPointPadd) +
+                ',  ' + cellPosition2.xPos + ' ' + cellPosition2.yPos
+            )
+            drawable = true;
+        }
+        // M1 - M2 ( Right - Left )
+        else if (_chart[matrixNumber1].isSquareMAtrix() && _chart[
+            matrixNumber2].isSquareMAtrix())
+        {
+            cellPosition1 = _chart[matrixNumber1].connectingPosition(
+                id1, 'left');
+            cellPosition2 = _chart[matrixNumber2].connectingPosition(
+                id2, 'right');
+            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+                cellPosition1.xPos + ' ' + cellPosition1.yPos +
+                ' C ' + (cellPosition1.xPos - controlPointPadd) +
+                ' ' + cellPosition1.yPos + ', ' + (cellPosition2.xPos +
+                    controlPointPadd) + ' ' + cellPosition2.yPos +
+                ',  ' + cellPosition2.xPos + ' ' + cellPosition2.yPos
+            )
+            drawable = true;
+        }
+        else
+        {
+            cellPosition1 = _chart[matrixNumber1].connectingPosition(
+                id1, 'top');
+            cellPosition2 = _chart[matrixNumber2].connectingPosition(
+                id2, 'bottom');
+            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2+ ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+                cellPosition1.xPos + ' ' + cellPosition1.yPos +
+                ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos -
+                    controlPointPadd) + ', ' + cellPosition2.xPos +
+                ' ' + (cellPosition2.yPos + controlPointPadd) +
+                ',  ' + cellPosition2.xPos + ' ' + cellPosition2.yPos
+            )
+            drawable = true;
+        }
+        controlPointPadd = 175;
+        // controlPointPadd = 10;
+ 
+        if (drawable)
+        {
+            if (AugmentedNodeTrix._currentHighlightedPair.src == id1 ||
+                AugmentedNodeTrix._currentHighlightedPair.src == id2 ||
+                AugmentedNodeTrix._currentHighlightedPair.dst == id1 ||
+                AugmentedNodeTrix._currentHighlightedPair.dst == id2)
+            {
+                path.classed('bezierCurvesHighlighted', true);
+                path.classed('bezierCurvesDeHighlighted', false);
+
+            }
+            else if (AugmentedNodeTrix._currentHighlightedPair.src != -
+                1 && AugmentedNodeTrix._currentHighlightedPair.dst != -
+                1)
+            {
+                // console.log(AugmentedNodeTrix._currentHighlightedPair.src, ", ", AugmentedNodeTrix._currentHighlightedPair.dst);
+                path.classed('bezierCurvesHighlighted', false);
+                path.classed('bezierCurvesDeHighlighted', true);
+            }
+            else
+            {
+                path.classed('bezierCurves', true);
+                path.classed('bezierCurvesHighlighted', false);
+                path.classed('bezierCurvesDeHighlighted', false);
+            }
+        }
+    }
+    function drawPath(matrixNumber1, matrixNumber2, id1, id2, weight)
+    {
+        // var matrixNumber1 = datapoint["m1"];
+        // var matrixNumber2 = datapoint["m2"];
+        // var id1 = datapoint["id1"];
+        // var  id2 = datapoint["id2"];
+
+        // console.log("id1",id1, "id2",id2); 
+        var cellPosition1, cellPosition2;
+        // console.log("d3 scale= ", myd3.event.scale);
+        var controlPointPadd = 100 * AugmentedNodeTrix.globalScaleFactor;
+        // var path = d3.select('#' + AugmentedNodeTrix._parentID + ' g g').append(
+        //     'path');
+         var path = d3.select('#' + AugmentedNodeTrix._parentID ).append(
+            'path');
+            path.attr("stroke-width", weight);
+            // path.attr("sourceAuthorId", id1);
+            // path.attr("destinationAuthorId", id2);
+        var drawable = false;
+        /*@ToDo - Have some rule which makes sure that nearby matrices have straight lines instead of curves
+    if( 
+        Math.abs(_chart[ matrixNumber1 ].topLeft().yPos + _chart[ matrixNumber1 ].height() - _chart[ matrixNumber2 ].topLeft().yPos ) < 150 ||
+        Math.abs(_chart[ matrixNumber1 ].topLeft().xPos + _chart[ matrixNumber1 ].width()  - _chart[ matrixNumber2 ].topLeft().xPos ) < 150 ||
+
+        Math.abs(_chart[ matrixNumber2 ].topLeft().yPos + _chart[ matrixNumber2 ].height() - _chart[ matrixNumber1 ].topLeft().yPos ) < 150 ||
+        Math.abs(_chart[ matrixNumber2 ].topLeft().xPos + _chart[ matrixNumber2 ].width()  - _chart[ matrixNumber1 ].topLeft().xPos ) < 150
+    )
+controlPointPadd = 10;*/
+
+        // M1 - M2 ( Top - Bottom )
+        if (_chart[matrixNumber1].topLeft().yPos + _chart[matrixNumber1]
+            .height() < _chart[matrixNumber2].topLeft().yPos)
+        {
+            cellPosition1 = _chart[matrixNumber1].connectingPosition(
+                id1, 'bottom');
+            cellPosition2 = _chart[matrixNumber2].connectingPosition(
+                id2, 'top');
+
+            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+                cellPosition1.xPos + ' ' + cellPosition1.yPos +
+                ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos +
+                    controlPointPadd) + ', ' + cellPosition2.xPos +
+                ' ' + (cellPosition2.yPos - controlPointPadd) +
+                ',  ' + cellPosition2.xPos + ' ' + cellPosition2.yPos
+            )
+            drawable = true;
+        }
+        // M1 - M2 ( Left - Right )
+        else if (_chart[matrixNumber1].topLeft().xPos + _chart[
+                matrixNumber1].width() < _chart[matrixNumber2].topLeft()
+            .xPos && _chart[matrixNumber1].topLeft().yPos + _chart[
+                matrixNumber1].height() > _chart[matrixNumber2].topLeft()
+            .yPos && _chart[matrixNumber1].isSquareMAtrix() && _chart[
+                matrixNumber2].isSquareMAtrix())
+        {
+            cellPosition1 = _chart[matrixNumber1].connectingPosition(
+                id1, 'right');
+            cellPosition2 = _chart[matrixNumber2].connectingPosition(
+                id2, 'left');
+           path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+                cellPosition1.xPos + ' ' + cellPosition1.yPos +
+                ' C ' + (cellPosition1.xPos + controlPointPadd) +
+                ' ' + cellPosition1.yPos + ', ' + (cellPosition2.xPos -
+                    controlPointPadd) + ' ' + cellPosition2.yPos +
+                ',  ' + cellPosition2.xPos + ' ' + cellPosition2.yPos
+            )
+            drawable = true;
+        }
+        // M1 - M2 ( Bottom - Top )
+        else if (_chart[matrixNumber1].topLeft().xPos + _chart[
+                matrixNumber1].width() > _chart[matrixNumber2].topLeft()
+            .xPos && _chart[matrixNumber2].topLeft().yPos + _chart[
+                matrixNumber2].height() < _chart[matrixNumber1].topLeft()
+            .yPos)
+        {
+            cellPosition1 = _chart[matrixNumber1].connectingPosition(
+                id1, 'top');
+            cellPosition2 = _chart[matrixNumber2].connectingPosition(
+                id2, 'bottom');
+            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+                cellPosition1.xPos + ' ' + cellPosition1.yPos +
+                ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos -
+                    controlPointPadd) + ', ' + cellPosition2.xPos +
+                ' ' + (cellPosition2.yPos + controlPointPadd) +
+                ',  ' + cellPosition2.xPos + ' ' + cellPosition2.yPos
+            )
+            drawable = true;
+        }
+        // M1 - M2 ( Right - Left )
+        else if (_chart[matrixNumber1].isSquareMAtrix() && _chart[
+            matrixNumber2].isSquareMAtrix())
+        {
+            cellPosition1 = _chart[matrixNumber1].connectingPosition(
+                id1, 'left');
+            cellPosition2 = _chart[matrixNumber2].connectingPosition(
+                id2, 'right');
+            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+                cellPosition1.xPos + ' ' + cellPosition1.yPos +
+                ' C ' + (cellPosition1.xPos - controlPointPadd) +
+                ' ' + cellPosition1.yPos + ', ' + (cellPosition2.xPos +
+                    controlPointPadd) + ' ' + cellPosition2.yPos +
+                ',  ' + cellPosition2.xPos + ' ' + cellPosition2.yPos
+            )
+            drawable = true;
+        }
+        else
+        {
+            cellPosition1 = _chart[matrixNumber1].connectingPosition(
+                id1, 'top');
+            cellPosition2 = _chart[matrixNumber2].connectingPosition(
+                id2, 'bottom');
+            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2+' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos -
                     controlPointPadd) + ', ' + cellPosition2.xPos +

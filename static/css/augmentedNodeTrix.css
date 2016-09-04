@@ -105,7 +105,16 @@ path.bezierCurves
 {
     fill: none;
     stroke: #ccc;
-    stroke-width: 1.5px;
+    /*stroke-width: 1.5px;*/
+    shape-rendering: "crispEdges"
+}
+path.layer3
+{
+  fill: none;
+  stroke: #ccc;
+    /*stroke: #0000ff;*/
+    stroke-dasharray:5;
+    /*stroke-width: 1.5px;*/
     shape-rendering: "crispEdges"
 }
 
@@ -113,7 +122,7 @@ path.bezierCurvesHighlighted
 {
     fill: none;    
     stroke: green;
-    stroke-width: 1px;
+    /*stroke-width: 1px;*/
 }
 
 path.bezierCurvesDeHighlighted 
