@@ -20,6 +20,7 @@ function AugmentedNodeTrix(chartContainerID)
     var _tickTimer;
     var _tickFlag=false;
     var _showLayer3Edge = true;
+    var _showLayer3Edge1 = false;
 
 
     // Original data set ordering
@@ -1140,7 +1141,7 @@ function AugmentedNodeTrix(chartContainerID)
                 }
             }
         }
-        console.log("_overAllEdgeList: ",_overAllEdgeList, ", _shortlistedEdgeList: ",_shortlistedEdgeList, "_shortlistedEdgeListByMatrices",_shortlistedEdgeListByMatrices);
+        // console.log("_overAllEdgeList: ",_overAllEdgeList, ", _shortlistedEdgeList: ",_shortlistedEdgeList, "_shortlistedEdgeListByMatrices",_shortlistedEdgeListByMatrices);
 
         // var countingedges=0;
         // for(var i=0;i<_shortlistedEdgeListByMatrices.length;i++)
@@ -1154,6 +1155,7 @@ function AugmentedNodeTrix(chartContainerID)
     chart.shortlistEdgesBetweenMatricesMultilayer = function(_overAllEdgeList)
     {
         _layer3_Edges_ByMatrices = new Array(_piecewiseDatasetMatrix.lenth);
+        _shortlistedEdgeList_layer3 = [];
 
         for(var i=0; i<_piecewiseDatasetMatrix.length;i++)
             _layer3_Edges_ByMatrices[i] = [];
@@ -1162,6 +1164,7 @@ function AugmentedNodeTrix(chartContainerID)
         {
             var id1 = _overAllEdgeList[k].src;
             var id2 = _overAllEdgeList[k].dst;
+            var weight =  _overAllEdgeList[k].cnt;
             for (i = 0; i < _piecewiseDatasetMatrix.length; ++i)
             {
                 for (j = i; j < _piecewiseDatasetMatrix.length; ++j)
@@ -1175,22 +1178,26 @@ function AugmentedNodeTrix(chartContainerID)
                             "m1":i,
                             "m2":j,
                             "id1":id1,
-                            "id2":id2
+                            "id2":id2,
+                            "weight":weight
                         });
                         _layer3_Edges_ByMatrices[i].push({
                             "m1":i,
                             "m2":j,
                             "id1":id1,
-                            "id2":id2
+                            "id2":id2,
+                            "weight":weight
                         
                             });
                         _layer3_Edges_ByMatrices[j].push({
                             "m1":i,
                             "m2":j,
                             "id1":id1,
-                            "id2":id2
+                            "id2":id2,
+                            "weight":weight
                         
                             });
+                        // console.log("found. m1:",i," m2:",j," id1:",id1," id2:",id2);
 
                     }
                     else if (i != j && _chart[i].hasID(id2) && _chart[j]
@@ -1201,40 +1208,49 @@ function AugmentedNodeTrix(chartContainerID)
                             "m1":i,
                             "m2":j,
                             "id1":id2,
-                            "id2":id1
+                            "id2":id1,
+                            "weight":weight
                         });
                          _layer3_Edges_ByMatrices[i].push({
                             "m1":i,
                             "m2":j,
                             "id1":id2,
-                            "id2":id1
+                            "id2":id1,
+                            "weight":weight
                         
                             });
                         _layer3_Edges_ByMatrices[j].push({
                             "m1":i,
                             "m2":j,
                             "id1":id2,
-                            "id2":id1
+                            "id2":id1,
+                            "weight":weight
                         
                             });
+                        // console.log("found. m1:",i," m2:",j," id1:",id1," id2:",id2);
 
                     }
+                    else
+                    {
+                        // console.log("Not found. m1:",i," m2:",j," id1:",id1," id2:",id2);
+                    }
+
                 }
             }
         }
-        // console.log("_overAllEdgeList: ",_overAllEdgeList, ", _shortlistedEdgeList: ",_shortlistedEdgeList, "_shortlistedEdgeListByMatrices",_shortlistedEdgeListByMatrices);
+        // console.log("_overAllEdgeList: ",_overAllEdgeList, ", _shortlistedEdgeList_layer3: ",_shortlistedEdgeList_layer3);
 
         // var countingedges=0;
-        // for(var i=0;i<_shortlistedEdgeListByMatrices.length;i++)
+        // for(var i=0;i<_layer3_Edges_ByMatrices.length;i++)
         // {
-        //     countingedges += _shortlistedEdgeListByMatrices[i].length;
+        //     countingedges += _layer3_Edges_ByMatrices[i].length;
 
         // }
         // console.log("total edges: ", countingedges);
     }           
     chart.leftSidebarClicked = function()
     {
-        if (_showLayer3Edge)
+        if (_showLayer3Edge1)
         {
             $("#layer3edge").attr("checked", "true");
         }
@@ -1242,15 +1258,23 @@ function AugmentedNodeTrix(chartContainerID)
             {
                 if (!$(this).is(':checked'))
                 {
-                    _showLayer3Edge = true;
-                    rerenderMultilayerPaths();
+                    _showLayer3Edge1 = true;
+                    // rerenderMultilayerPaths();
+                    d3.selectAll('.layer3').attr("opacity",1);
                     // render_layer3(_shortlistedEdgeList_layer3);
                 }
                 else
                 {
-                    _showLayer3Edge = false;
+                    _showLayer3Edge1 = false;
+                    d3.selectAll('.layer3').attr("opacity",0);
                     // visualization.updateColorSpace('')
-                    removeMultilayerPaths();
+                    // removeMultilayerPaths();
+                    for(var i=0; i<_piecewiseDatasetMatrix.length; i++)
+                    {   
+                        if(_chart[i].getShowLayer3Edges())
+                            _chart[i].rerenderMultilayerPaths(i);
+                    }
+
                 }
             });
     }
@@ -1559,10 +1583,10 @@ function AugmentedNodeTrix(chartContainerID)
        //  // console.log(_overAllEdgeList)     ;
         for (var k = 0; k < _layer3_Edges_ByMatrices[matrixId].length; ++k)
         {
-            drawPath_Multilayer(_layer3_Edges_ByMatrices[matrixId][k]["m1"], _layer3_Edges_ByMatrices[matrixId][k]["m2"], _layer3_Edges_ByMatrices[matrixId][k]["id1"], _layer3_Edges_ByMatrices[matrixId][k]["id2"]);
+            drawPath_Multilayer(_layer3_Edges_ByMatrices[matrixId][k]["m1"], _layer3_Edges_ByMatrices[matrixId][k]["m2"], _layer3_Edges_ByMatrices[matrixId][k]["id1"], _layer3_Edges_ByMatrices[matrixId][k]["id2"], _layer3_Edges_ByMatrices[matrixId][k]["weight"] );
         }
 
-        if(_chart[matrixId].getShowLayer3Edges())
+        if(_chart[matrixId].getShowLayer3Edges() || _showLayer3Edge1)
             _chart[matrixId].rerenderMultilayerPaths(matrixId);
         
     }
@@ -1810,6 +1834,7 @@ controlPointPadd = 10;*/
         var matrixNumber2 = datapoint["m2"];
         var id1 = datapoint["id1"];
         var  id2 = datapoint["id2"];
+        var weight = datapoint["weight"];
 
           nodes.attr("transform", function(d)
         {
@@ -1828,7 +1853,7 @@ controlPointPadd = 10;*/
          var path = d3.select('#' + AugmentedNodeTrix._parentID ).append(
             'path');
          path.attr("opacity",0);
-
+         path.attr("stroke-width", weight);
 
         var drawable = false;
         /*@ToDo - Have some rule which makes sure that nearby matrices have straight lines instead of curves
@@ -1961,7 +1986,7 @@ controlPointPadd = 10;*/
             }
         }
     }
-     function drawPath_Multilayer(matrixNumber1, matrixNumber2, id1, id2)
+     function drawPath_Multilayer(matrixNumber1, matrixNumber2, id1, id2, weight)
     {
         // var matrixNumber1 = datapoint["m1"];
         // var matrixNumber2 = datapoint["m2"];
@@ -1985,6 +2010,7 @@ controlPointPadd = 10;*/
          var path = d3.select('#' + AugmentedNodeTrix._parentID ).append(
             'path');
          path.attr("opacity",0);
+         path.attr("stroke-width", weight);
         var drawable = false;
         /*@ToDo - Have some rule which makes sure that nearby matrices have straight lines instead of curves
     if( 

@@ -239,9 +239,9 @@ function MatrixVisualization()
             // d3.selectAll('#' + AugmentedNodeTrix._parentID +
             //    ' .mat'+index + '.layer3').attr("opacity",1);
             d3.selectAll(' .mat'+index + '.layer3').attr("opacity",1);
-            var a = d3.selectAll(' .mat'+index + '.layer3');
+            
 
-            console.log(' .mat'+index + '.layer3' , d3.selectAll(' .mat'+index + '.layer3'));
+            // console.log(' .mat'+index + '.layer3' , d3.selectAll(' .mat'+index + '.layer3'));
         }
 
     chart.getShowLayer3Edges = function()
@@ -964,6 +964,7 @@ function MatrixVisualization()
                 
                 xposition = rowOffset.left +  _axisRowPositioningScaleCopy.rangeBand();
                 yposition = rowOffset["top"]+ padding;
+                // console.log("right: ",xposition);
 
                 // xposition = drawnMatrixTopLeftX + (_axisRowPositioningScaleCopy.rangeBand() *
                 //         _matrixColumnSize) ;
@@ -990,6 +991,8 @@ function MatrixVisualization()
                 yposition = drawnMatrixTopLeftY + (
                         _axisColumnPositioningScaleCopy.rangeBand() *
                         _matrixRowSize);
+                // console.log("bottom:",_axisColumnPositioningScaleCopy.rangeBand() *
+                //         _matrixRowSize);
                 
                 // var wid , hei;
                 // wid = _axisRowPositioningScaleCopy.rangeBand() *_matrixColumnSize;
@@ -1384,8 +1387,8 @@ function MatrixVisualization()
             {
                 for (var j = 0; j < vertices.length; ++j)
                 {
-                    console.log(verticesChosen[i]);
-                    console.log(vertices[j]);
+                    // console.log(verticesChosen[i]);
+                    // console.log(vertices[j]);
                     if (verticesChosen[i] != vertices[j] && _matrix[
                             verticesChosen[i]][vertices[j]] <=
                         minimumDistance)
@@ -2013,7 +2016,7 @@ function MatrixVisualization()
                 //data: JSON.stringify(data),
                 url: '/similarity',
                 success: function (fetchdataResult) {
-                console.log(fetchdataResult["matrix"]);
+                // console.log(fetchdataResult["matrix"]);
                     // draw_Scatterplot(fetchdataResult)
                     // console.log(fetchdataResult);
                     recdMatrix = fetchdataResult["matrix"];
@@ -2093,7 +2096,7 @@ function MatrixVisualization()
             jsonData["numberOfClusters"] = clusters;
             jsonData["labels"] = _columnLabels;
             // console.log(jsonData);
-            console.log("Unnormalized Adjacency Matrix: ", _unnormalizedAdjacencyMatrix);
+            // console.log("Unnormalized Adjacency Matrix: ", _unnormalizedAdjacencyMatrix);
 
             var tempMatrix2 = new Array(clusters)
             for (var j = 0; j < clusters; j++)
@@ -2141,14 +2144,14 @@ function MatrixVisualization()
                                 _clusterVector[i] = recdClusterVector[i];
                             
                         }
-                        console.log("Clustering vector: ",_clusterVector);
+                        // console.log("Clustering vector: ",_clusterVector);
                         _clusteringDone = true;
 
-                        console.log("cluster drift before: ", _clusterdrift);
+                        // console.log("cluster drift before: ", _clusterdrift);
                         // Code to form cluster drift
                         for(var i=0; i< _matrixColumnSize; i++)
                         {
-                             console.log("i = ",i);
+                             // console.log("i = ",i);
                             // temparray = [];
                             max=-1;
                             clusterindex=-1;
@@ -2156,18 +2159,18 @@ function MatrixVisualization()
                             for(var j=0; j<clusters;j++)
                             {
                                 // temparray.push(recdMatrix[i][j]);
-                                console.log("here: j = ",j);
-                                console.log("received matrix = ",recdMatrix[j][i]);
-                                console.log("max = ",max);
+                                // console.log("here: j = ",j);
+                                // console.log("received matrix = ",recdMatrix[j][i]);
+                                // console.log("max = ",max);
                                 if(recdMatrix[j][i] > max)
                                 {
-                                    console.log("in if");
+                                    // console.log("in if");
                                     max = recdMatrix[j][i];
                                     clusterindex = j;
-                                    console.log("inside if. max = ", max, "clusterindex=", clusterindex);
+                                    // console.log("inside if. max = ", max, "clusterindex=", clusterindex);
                                 }
                             }
-                            console.log("max = ",max, "clusterindex = ", clusterindex);
+                            // console.log("max = ",max, "clusterindex = ", clusterindex);
                            
                             // This means i th columnlabel belongs to clusterindex+1 th cluster
                             //Find which node is at i th columnlabel

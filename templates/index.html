@@ -8,10 +8,10 @@
     <meta content="" name="description">
     <meta content="" name="author"><!-- Bootstrap Core CSS -->
     <!-- <link href="static/css/bootstrap.min.css" rel="stylesheet"> -->
-    <link href="static/css/bootstrap.css" rel="stylesheet">
-   <!--  <link href=
+    <!-- <link  href="static/css/bootstrap.css" rel="stylesheet"> -->
+    <link href=
     "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"
-    rel="stylesheet"> -->
+    rel="stylesheet">
     <link href="static/css/BootSideMenu.css" rel="stylesheet"><!-- Custom CSS -->
     <link href="static/css/simple-sidebar.css" rel="stylesheet">
 
@@ -589,7 +589,7 @@ $("#menu-toggle").click(function(e) {
                                   edgeList_layer3 = [];
                                   for (var i=0;i<data1.length; i++)
                                   {
-                                    temp = {src: parseInt(data1[i][0]), dst: parseInt(data1[i][1]), cnt:parseInt(data1[i][2])};
+                                    temp = {src: parseInt(data1[i][0]), dst: parseInt(data1[i][1]), cnt:parseFloat(data1[i][2])};
                                     edgeList_layer3.push(temp);
                                   }
                                   edgeList = [];
