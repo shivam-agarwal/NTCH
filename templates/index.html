@@ -34,6 +34,11 @@
     <script src="static/js/pablo.js"></script>
     <script src="static/js/saveSvgAsPng.js"></script>
 
+    <script src="static/js/jquery.multiselect.js"></script>
+    <link  href="static/css/jquery.multiselect.css" rel="stylesheet" />
+
+
+
 
     <script src="static/lib/science.v1.js"></script>
     <script src="static/lib/tiny-queue.js"></script>
@@ -1076,9 +1081,29 @@ window.focusSidebarRefreshIdArray = ["clusterOptions", "sidebar-filter"];
 
       </optgroup>
     </select>
-     <label>
-    <input id="layer3edge_focus" type="checkbox" name="checkbox"> Show Layer 3 Edges
+    <br />
+
+    <!-- <h2> Intra-community Edegs </h2> -->
+    <!-- <select name="edges" multiple >
+        <option value="layer1">Co-authorship layer edges</option>
+        <option value="layer2" id="layer3edge_focus" >Author-Topic Similarity layer edges</option>
+
+    </select> -->
+
+     <!-- <label>
+         <input type="checkbox" onclick="return false" checked >Co-author Edges </input>
+    </label> -->
+    <br/>
+    <label style='margin-left:10px;margin-right:10px;'>
+        <input id="layer3edge_focus" type="checkbox" name="checkbox">Author-Topic Similarty Edges </input>
     </label>
+    <!-- <script>
+    $('select[multiple]').multiselect({
+        columns: 1,
+        placeholder: 'Select options'
+    });
+    </script> -->
+
     
     <!-- //Shivam -->
     <!--   <h2> Co-Author Link Prediction </h2>
@@ -1091,7 +1116,7 @@ window.focusSidebarRefreshIdArray = ["clusterOptions", "sidebar-filter"];
       </optgroup>
     </select> -->
 
-    <br/>
+    
 
     <h2> Operations </h2>
     <select name="matrix" id="sidebar-matrix">
