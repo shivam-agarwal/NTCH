@@ -25,6 +25,10 @@ import os
 
 app = Flask(__name__)
 
+@app.route('/tutorial')
+def tutorial():
+    return render_template('tutorial.html')
+
 @app.route('/')
 def clusterings():
     return render_template('index.html')
