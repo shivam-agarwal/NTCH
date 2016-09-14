@@ -2232,6 +2232,7 @@ function MatrixVisualization()
     chart.similarityMatrices = function(matrixType, index)
     {
 
+
         _history.push(matrixType);
         this.actionHistoryRefresh();
 
@@ -2253,12 +2254,13 @@ function MatrixVisualization()
             tempMatrix2[j] = new Array(_matrixColumnSize);
         }
 
+        $.blockUI({ message: '<h1>Loading alternate similarity matrix..<\/h1>' });
         $.ajax({
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(jsonData),
                 dataType: 'json',
-                async: false,
+                async: true,
 
                 //data: JSON.stringify(data),
                 url: '/similarity',
@@ -2276,12 +2278,14 @@ function MatrixVisualization()
                     }
 
                     _clusteringDone = false;
+                    $.unblockUI();
+                    _matrix = normalize_Matrix(tempMatrix2, _matrixRowSize, _matrixColumnSize);
+                    chart.renderUpdatedMatrix();
+                    return chart;
                 }
             
             });
-        _matrix = normalize_Matrix(tempMatrix2, _matrixRowSize, _matrixColumnSize);
-        this.renderUpdatedMatrix();
-        return chart;
+        
 
     }
 
