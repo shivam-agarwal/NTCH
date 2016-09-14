@@ -546,6 +546,18 @@ function AugmentedNodeTrix(chartContainerID)
                             focusSidebarRefreshIdArray);
                         visualization.applyLeaf(index);
                     }
+                    else if (ui.item.value == 'CrossingReduction')
+                    {
+                        refreshSidebar(
+                            focusSidebarRefreshIdArray);
+                        visualization.applyCrossingReduction(index);
+                    }
+                    else if (ui.item.value == 'BandwidthReduction')
+                    {
+                        refreshSidebar(
+                            focusSidebarRefreshIdArray);
+                        visualization.applyBandwidthReduction(index);
+                    }
                      else if (ui.item.value == 'CLUSION')
                     {
                         refreshSidebar(
@@ -1142,6 +1154,8 @@ function AugmentedNodeTrix(chartContainerID)
             }
         }
         // console.log("_overAllEdgeList: ",_overAllEdgeList, ", _shortlistedEdgeList: ",_shortlistedEdgeList, "_shortlistedEdgeListByMatrices",_shortlistedEdgeListByMatrices);
+        console.log(" Total number of edges between marices: ",_shortlistedEdgeList.length);
+        console.log("Total number of communities:", _piecewiseDatasetMatrix.length);
 
         // var countingedges=0;
         // for(var i=0;i<_shortlistedEdgeListByMatrices.length;i++)
@@ -1238,6 +1252,7 @@ function AugmentedNodeTrix(chartContainerID)
                 }
             }
         }
+        console.log(" Total number of edges between marices - Layer3: ",_shortlistedEdgeList_layer3.length);    
         // console.log("_overAllEdgeList: ",_overAllEdgeList, ", _shortlistedEdgeList_layer3: ",_shortlistedEdgeList_layer3);
 
         // var countingedges=0;
@@ -1691,7 +1706,7 @@ function AugmentedNodeTrix(chartContainerID)
         //     'path');
          var path = d3.select('#' + AugmentedNodeTrix._parentID ).append(
             'path');
-          path.attr("stroke-width", weight);
+          path.attr("stroke-width", weight+2);
            // path.attr("sourceAuthorId", id1);
            //  path.attr("destinationAuthorId", id2);
            // path.attr('class','src'+id1+ ' dest'+id2);
@@ -1853,7 +1868,7 @@ controlPointPadd = 10;*/
          var path = d3.select('#' + AugmentedNodeTrix._parentID ).append(
             'path');
          path.attr("opacity",0);
-         path.attr("stroke-width", weight);
+         path.attr("stroke-width", weight+2);
 
         var drawable = false;
         /*@ToDo - Have some rule which makes sure that nearby matrices have straight lines instead of curves
@@ -2010,7 +2025,7 @@ controlPointPadd = 10;*/
          var path = d3.select('#' + AugmentedNodeTrix._parentID ).append(
             'path');
          path.attr("opacity",0);
-         path.attr("stroke-width", weight);
+         path.attr("stroke-width", weight+2);
         var drawable = false;
         /*@ToDo - Have some rule which makes sure that nearby matrices have straight lines instead of curves
     if( 
@@ -2157,7 +2172,7 @@ controlPointPadd = 10;*/
         //     'path');
          var path = d3.select('#' + AugmentedNodeTrix._parentID ).append(
             'path');
-            path.attr("stroke-width", weight);
+            path.attr("stroke-width", weight+2);
             // path.attr("sourceAuthorId", id1);
             // path.attr("destinationAuthorId", id2);
         var drawable = false;
@@ -2616,12 +2631,42 @@ controlPointPadd = 10;*/
     {
         if (typeof index === 'undefined')
         {
-            // for (var i = 0; i < _piecewiseDatasetMatrix.length; ++i)
-                // if (_chart[i].getState() != "freezed") _chart[i].applyCLUSION();
+            for (var i = 0; i < _piecewiseDatasetMatrix.length; ++i)
+                if (_chart[i].getState() != "freezed") _chart[i].applyLeaf();
         }
         else
         {
             _chart[index].applyLeaf();
+            // _chart[index]._history.push("VAT Seriation");
+            // console.log(_chart[index]._history);
+        }
+        return chart;
+    }
+     chart.applyCrossingReduction = function(index)
+    {
+        if (typeof index === 'undefined')
+        {
+            for (var i = 0; i < _piecewiseDatasetMatrix.length; ++i)
+                if (_chart[i].getState() != "freezed") _chart[i].applyCrossingReduction();
+        }
+        else
+        {
+            _chart[index].applyCrossingReduction();
+            // _chart[index]._history.push("VAT Seriation");
+            // console.log(_chart[index]._history);
+        }
+        return chart;
+    }
+    chart.applyBandwidthReduction = function(index)
+    {
+        if (typeof index === 'undefined')
+        {
+            for (var i = 0; i < _piecewiseDatasetMatrix.length; ++i)
+                if (_chart[i].getState() != "freezed") _chart[i].applyBandwidthReduction();
+        }
+        else
+        {
+            _chart[index].applyBandwidthReduction();
             // _chart[index]._history.push("VAT Seriation");
             // console.log(_chart[index]._history);
         }

@@ -8,10 +8,10 @@
     <meta content="" name="description">
     <meta content="" name="author"><!-- Bootstrap Core CSS -->
     <!-- <link href="static/css/bootstrap.min.css" rel="stylesheet"> -->
-    <!-- <link  href="static/css/bootstrap.css" rel="stylesheet"> -->
-    <link href=
+    <link  href="static/css/bootstrap.css" rel="stylesheet">
+ <!--    <link href=
     "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"
-    rel="stylesheet">
+    rel="stylesheet"> -->
     <link href="static/css/BootSideMenu.css" rel="stylesheet"><!-- Custom CSS -->
     <link href="static/css/simple-sidebar.css" rel="stylesheet">
 
@@ -69,10 +69,7 @@
 $(document).ready(function(){
       window.originalSidebar = $('#test2').html();
       $("#test2.container.sidebar.sidebar-right").find(".toggler").hide();
-
       window.leftSidebar = $('#test').html();
-
-
     });
 
     </script>
@@ -90,9 +87,32 @@ $(document).ready(function(){
 </head>
 
 <body>
+<nav class="navbar navbar-default navbar-fixed-top">
+
+  <!-- <ul class="nav navbar-nav ">
+    <li> <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><span id="arrow">&#8592;</span> 
+                                    Context Operations</a></li></ul> -->
+    <ul class="nav navbar-nav ">
+    <li> <a href="#menu-toggle"  id="menu-toggle"><span id="arrow">&#8592;</span> 
+                                    Context Operations</a></li></ul>
+      <div class="container" style='margin-right: 10px;'>
+        <div class="navbar-header" >
+
+          <a class="navbar-brand"  style='text-align:center;font-size:25px;' >NodeTrix-Multiplex</a>
+         <!--  <p class="navbar-brand" style='text-align:center;font-size:25px;font-family:"PT Serif",Helvetica;'>
+                        NodeTrix-Multiplex</p> -->
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="">Tutorial</a></li>
+                <!-- <li><a href="">About</a></li> -->
+                <!-- <li class="active"><a href="">Fixed top <span class="sr-only">(current)</span></a></li> -->
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <br/><br/><br/>
 <div id="container"><a  id = "json_download"></a></div>
 <div id="container"><a  id = "memGraph"></a></div>
-    <!--Test -->
+    <!--Test 
 <!-- <canvas id="canvas"></canvas> -->
 
     <div id="test">
@@ -111,7 +131,7 @@ $(document).ready(function(){
 
     <div id="wrapper">
         <!-- Sidebar -->
-
+        <!-- Context Sidebar -->
 
         <div id="sidebar-wrapper">
             <div>
@@ -202,7 +222,11 @@ $(document).ready(function(){
                         <option value="VATed">
                             VAT Seriation
                         </option>
-
+                        <option value="Leaf">
+                            Optimal Leaf Order Seriation
+                        </option> 
+                        <option value="CrossingReduction">by Crossing Reduction Seriation</option> 
+        <option value="BandwidthReduction">by Bandwidth Reduction Seriation</option> 
                         <option value="Lap">
                             Laplacian
                         </option>
@@ -228,9 +252,9 @@ $(document).ready(function(){
             <option value="NormLap">Normalized Laplacian</option>   -->
                     </optgroup>
                 </select><br>
-                 <label>
+                 <!-- <label>
                     <input id="layer3edge" type="checkbox" name="checkbox"> Show Layer 3 Edges
-                    </label>
+                    </label> -->
                 <!--
         <h2> Matrix Seriation </h2>
         <select name="matrixSeriation" id="matrixSeriation">
@@ -280,13 +304,13 @@ $(document).ready(function(){
                 <div class="row">
                     <div class="col-lg-12">
                         <!-- <h1><u>Augmented Nodetrix</u></h1>                                                 -->
-                        <a class="btn btn-default" href="#menu-toggle" id=
+                        <!-- <a class="btn btn-default" href="#menu-toggle" id=
                         "menu-toggle"><span id="arrow">&#8592;</span>
                         Context Operations</a>
 
                         <p style=
                         'text-align:center;font-size:25px;font-family:"PT Serif",Helvetica;'>
-                        NodeTrix-Multiplex</p>
+                        NodeTrix-Multiplex</p> -->
 
 
                         <div id='chartArea'>
@@ -532,6 +556,7 @@ $("#menu-toggle").click(function(e) {
     // var datasetName = 'morenodestest/';
     // var datasetName = 'infovis_community_size_constraint/';
     // var datasetName = 'infovis_all/';
+    // var datasetName = 'infovis_1cc/';
     // var datasetName = 'a/';
     // var datasetName = 'freeassoc/';    //POS data
      // var datasetName = 'cora_classification/';
@@ -668,6 +693,23 @@ $("#menu-toggle").click(function(e) {
         refreshSidebar(contextSidebarRefreshIdArray);
         visualization.applyVAT();
       }
+      else if( ui.item.value == 'Leaf' )
+      {
+        refreshSidebar(contextSidebarRefreshIdArray);
+        visualization.applyLeaf();
+      }
+       else if (ui.item.value == 'CrossingReduction')
+    {
+        refreshSidebar(
+            focusSidebarRefreshIdArray);
+        visualization.applyCrossingReduction();
+    }
+    else if (ui.item.value == 'BandwidthReduction')
+    {
+        refreshSidebar(
+            focusSidebarRefreshIdArray);
+        visualization.applyBandwidthReduction();
+    }
 
       else if( ui.item.value == "Lap" )
       {
@@ -918,6 +960,8 @@ window.focusSidebarRefreshIdArray = ["clusterOptions", "sidebar-filter"];
                             VAT Seriation
                         </option>
 
+                        <option value="Leaf">Optimal Leaf Order Seriation</option> 
+
                         <option value="Lap">
                             Laplacian
                         </option>
@@ -991,6 +1035,7 @@ window.focusSidebarRefreshIdArray = ["clusterOptions", "sidebar-filter"];
 
     <script id="hidden-template" type="text/x-custom-template">
 <div>
+<br/><br/><br/>
 <a title="Download Focus Matrix as .png file" href="#" id = "sidebar-download" style="align:right"> <img src = "static/images/download.svg" width="15px" height="15px" /></a>
 
 <!-- <a title="Download Cluster Drift JSON" href="#" id = "json_download" style="align:right"> <img src = "images/download.svg" width="15px" height="15px" /></a>
@@ -1053,7 +1098,10 @@ window.focusSidebarRefreshIdArray = ["clusterOptions", "sidebar-filter"];
       <optgroup label="Operations">
       <option value="Self">Self</option> 
         <option value="VATed">VAT Seriation</option> 
-        <!-- <option value="Leaf">Leaf Order Seriation</option>  -->
+
+        <option value="Leaf">Optimal Leaf Order Seriation</option> 
+        <option value="CrossingReduction">by Crossing Reduction Seriation</option> 
+        <option value="BandwidthReduction">by Bandwidth Reduction Seriation</option> 
         <!-- <option value="CLUSION">CLUSION Coarse Seriation</option>  -->
         <option value="Lap">Laplacian</option>  
         <option value="Mod">Modularity</option>
@@ -1222,9 +1270,14 @@ window.focusSidebarRefreshIdArray = ["clusterOptions", "sidebar-filter"];
 
 
     </script> 
+<br/><br/>
+     <footer class="footer" style='text-align: center;'>
+      Developed by Graphics Visualization Computing Lab @ International Institute of Information Technology Bangalore
+      
+    </footer>
+   
 
-    
-<svg>
+<svg >
   <defs>
 <filter id="dropshadow" height="130%">
   <feGaussianBlur in="SourceAlpha" stdDeviation="18"/> 
@@ -1236,5 +1289,6 @@ window.focusSidebarRefreshIdArray = ["clusterOptions", "sidebar-filter"];
 </filter>
 </defs> 
 </svg>
+
 </body>
 </html>

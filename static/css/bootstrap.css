@@ -1405,7 +1405,7 @@ pre code {
 }
 @media (min-width: 1200px) {
   .container {
-    width: 1170px;
+    /*width: 1170px;*/
   }
 }
 .container-fluid {
@@ -3844,7 +3844,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 @media (min-width: 768px) {
   .navbar-header {
-    float: left;
+    /*float: left;*/
   }
 }
 .navbar-collapse {
