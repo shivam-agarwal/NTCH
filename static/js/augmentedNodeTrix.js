@@ -1666,7 +1666,9 @@ function AugmentedNodeTrix(chartContainerID)
      
         
         render(_shortlistedEdgeList);
-        render_layer3(_shortlistedEdgeList_layer3);
+
+        //Commenting this because zoom was working very slow
+        // render_layer3(_shortlistedEdgeList_layer3);
 
         for(var i=0; i<_piecewiseDatasetMatrix.length; i++)
         {   
