@@ -44,8 +44,8 @@
     <script src="static/js/pablo.js"></script>
     <script src="static/js/saveSvgAsPng.js"></script>
 
-    <script src="static/js/jquery.multiselect.js"></script>
-    <link  href="static/css/jquery.multiselect.css" rel="stylesheet" />
+   <!--  <script src="static/js/jquery.multiselect.js"></script>
+    <link  href="static/css/jquery.multiselect.css" rel="stylesheet" /> -->
 
 
 
@@ -66,6 +66,17 @@
     <link href="static/css/jquery-ui.css" rel="stylesheet">
     <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
 
+
+
+    <link href="static/css/bootstrap-tour.min.css" rel="stylesheet">
+    <!-- <link href="static/css/bootstrap-tour-standalone.min.css" rel="stylesheet"> -->
+    <script src="static/js/bootstrap-tour.min.js"></script>
+    <script src="static/js/tour.js"></script>
+    <!-- <script src="static/js/bootstrap-tour-standalone.min.js"></script> -->
+<!--      <script src="static/js/intro.js"></script>
+     <link href="static/css/introjs.css" rel="stylesheet"> -->
+
+
     <script type="text/javascript">
     function populateLeftSidebar()
     {
@@ -85,9 +96,32 @@ $(document).ready(function(){
       window.originalSidebar = $('#test2').html();
       $("#test2.container.sidebar.sidebar-right").find(".toggler").hide();
       window.leftSidebar = $('#test').html();
-    });
 
+        tour();
+
+        // Initialize the tour
+        
+
+        // Start the tour
+        
+    $("#btn").click(function(){
+        // console.log(localStorage.getItem("tour_end"));
+        if (localStorage.getItem("tour_end") == null) 
+        {
+            tour.init();
+                tour.start(true);
+            tour.goTo(0);
+
+        }
+        else{
+            tour.goTo(0);
+              tour.restart();
+        }
+    })
+
+  });
     </script>
+  
 
 
 <style>
@@ -107,17 +141,18 @@ $(document).ready(function(){
   <!-- <ul class="nav navbar-nav ">
     <li> <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><span id="arrow">&#8592;</span> 
                                     Context Operations</a></li></ul> -->
-    <ul class="nav navbar-nav ">
-    <li> <a href="#menu-toggle"  id="menu-toggle"><span id="arrow">&#8592;</span> 
+    <ul class="nav navbar-nav " >
+    <li > <a href="#menu-toggle"  id="menu-toggle" ><span id="arrow">&#8592;</span> 
                                     Context Operations</a></li></ul>
       <div class="container" style='margin-right: 10px;'>
         <div class="navbar-header" >
 
-          <a class="navbar-brand"  style='text-align:center;font-size:25px;' >NodeTrix-Multiplex</a>
+          <a class="navbar-brand"   style='text-align:center;font-size:25px;' >NodeTrix-Multiplex</a>
          <!--  <p class="navbar-brand" style='text-align:center;font-size:25px;font-family:"PT Serif",Helvetica;'>
                         NodeTrix-Multiplex</p> -->
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="tutorial" target='_blank' >Tutorial</a></li>
+                <li><a href="help" target='_blank' >Help</a></li>
+                <li><a id="btn" href='#'>Interactive Tutorial</a></li>
                 <!-- <li><a href="">About</a></li> -->
                 <!-- <li class="active"><a href="">Fixed top <span class="sr-only">(current)</span></a></li> -->
           </ul>
@@ -331,7 +366,7 @@ $(document).ready(function(){
                         <div id='chartArea'>
                         </div>
                         <hr />
-                        <p style=
+                        <p id='stagingAreaText' style=
                         'text-align:center;font-size:25px;font-family:"PT Serif",Helvetica;'>
                         Staging Area</p>
                         <svg id = "collectedview" width="100%" height="800px">
@@ -568,6 +603,7 @@ $("#menu-toggle").click(function(e) {
     //var datasetName = 'wordnet/';
     // var datasetName = 'cora_nodetrix/';
     var datasetName = 'infovis/';
+    // var datasetName = 'infovis2015/';
     // var datasetName = 'morenodestest/';
     // var datasetName = 'infovis_community_size_constraint/';
     // var datasetName = 'infovis_all/';
@@ -1061,7 +1097,7 @@ window.focusSidebarRefreshIdArray = ["clusterOptions", "sidebar-filter"];
     
      
     <h2> Color Scheme </h2>
-    <select name="color" id="sidebar-color"> 
+    <select name="color" id="sidebar-color" style='z-index:1;'> 
       <optgroup label="Color Scheme"> 
         <option value="BW">Black-White</option>
         <option value="OG">Orange-Green</option>
@@ -1306,7 +1342,7 @@ window.focusSidebarRefreshIdArray = ["clusterOptions", "sidebar-filter"];
 
     </script> 
 <br/><br/>
-     <footer class="footer" style='text-align: center;'>
+     <footer class="footer" id="footernote" style='text-align: center;'>
       Developed by Graphics Visualization Computing Lab @ International Institute of Information Technology Bangalore
       
     </footer>

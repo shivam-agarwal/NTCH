@@ -1414,6 +1414,11 @@ function AugmentedNodeTrix(chartContainerID)
             //  }
 
             //Defocus any previous selected node
+            if(tour.getCurrentStep() ==4)
+            {
+                // tour.next();
+                tour.goTo(5);
+            }
             visualization.deFocusNode();
             populateSidebar(index);
 

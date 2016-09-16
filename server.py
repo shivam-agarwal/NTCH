@@ -25,7 +25,7 @@ import os
 
 app = Flask(__name__)
 
-@app.route('/tutorial')
+@app.route('/help')
 def tutorial():
     return render_template('tutorial.html')
 

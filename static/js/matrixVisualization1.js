@@ -577,7 +577,7 @@ function MatrixVisualization()
                 }
             }
             chart.renderUpdatedMatrix();
-            console.log("in color scale, column labels", _columnLabels);
+            // console.log("in color scale, column labels", _columnLabels);
         }
         // Updating Alpha beta on slider change
     chart.updateAlpha = function(value)
