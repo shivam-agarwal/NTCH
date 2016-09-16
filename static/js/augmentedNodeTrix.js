@@ -21,6 +21,7 @@ function AugmentedNodeTrix(chartContainerID)
     var _tickFlag=false;
     var _showLayer3Edge = true;
     var _showLayer3Edge1 = false;
+    
 
 
     // Original data set ordering
@@ -32,6 +33,8 @@ function AugmentedNodeTrix(chartContainerID)
     var _chartContainerID = chartContainerID;
     var node;
     AugmentedNodeTrix.globalScaleFactor = 1;
+    AugmentedNodeTrix.edgeWeightBaseWidth = 4;
+
     window.globalCount=1;
     AugmentedNodeTrix._currentHighlightedPair = {
         src: -1,
@@ -1402,6 +1405,7 @@ function AugmentedNodeTrix(chartContainerID)
 
             container.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
             AugmentedNodeTrix.globalScaleFactor = d3.event.scale.toFixed(1);  //to avoid long decimal calculations
+            
            
           }
            function zoomEnd()
@@ -1504,7 +1508,7 @@ function AugmentedNodeTrix(chartContainerID)
 
         force.stop();
 
-        //Shivam-All of this to translate to center fo layout nodes. But it has some error as it is not perfectly translating when a single matrix is in data.
+       
         var xpositionsofmatrices = [];
         var ypositionsofmatrices = [];
         for(var i=0; i<_piecewiseDatasetMatrix.length; i++)
@@ -1728,7 +1732,7 @@ function AugmentedNodeTrix(chartContainerID)
         //     'path');
          var path = d3.select('#' + AugmentedNodeTrix._parentID ).append(
             'path');
-          path.attr("stroke-width", weight+2);
+          path.attr("stroke-width", (weight+AugmentedNodeTrix.edgeWeightBaseWidth)*AugmentedNodeTrix.globalScaleFactor);
            // path.attr("sourceAuthorId", id1);
            //  path.attr("destinationAuthorId", id2);
            // path.attr('class','src'+id1+ ' dest'+id2);
@@ -1890,7 +1894,7 @@ controlPointPadd = 10;*/
          var path = d3.select('#' + AugmentedNodeTrix._parentID ).append(
             'path');
          path.attr("opacity",0);
-         path.attr("stroke-width", weight+2);
+         path.attr("stroke-width", (weight+AugmentedNodeTrix.edgeWeightBaseWidth)*AugmentedNodeTrix.globalScaleFactor);
 
         var drawable = false;
         /*@ToDo - Have some rule which makes sure that nearby matrices have straight lines instead of curves
@@ -2034,7 +2038,7 @@ controlPointPadd = 10;*/
          var path = d3.select('#' + AugmentedNodeTrix._parentID ).append(
             'path');
          path.attr("opacity",0);
-         path.attr("stroke-width", weight+2);
+         path.attr("stroke-width", (weight+AugmentedNodeTrix.edgeWeightBaseWidth)*AugmentedNodeTrix.globalScaleFactor);
         var drawable = false;
         /*@ToDo - Have some rule which makes sure that nearby matrices have straight lines instead of curves
     if( 
@@ -2176,7 +2180,7 @@ controlPointPadd = 10;*/
         //     'path');
          var path = d3.select('#' + AugmentedNodeTrix._parentID ).append(
             'path');
-            path.attr("stroke-width", weight+2);
+            path.attr("stroke-width", (weight+AugmentedNodeTrix.edgeWeightBaseWidth)*AugmentedNodeTrix.globalScaleFactor);
             // path.attr("sourceAuthorId", id1);
             // path.attr("destinationAuthorId", id2);
         var drawable = false;
