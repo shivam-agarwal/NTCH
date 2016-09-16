@@ -231,14 +231,14 @@ function MatrixVisualization()
             _showLayer3Edges =false;
              // d3.selectAll('#' + AugmentedNodeTrix._parentID +
              //    ' .layer3.mat'+index).attr("opacity",0);
-             d3.selectAll(' .layer3.mat'+index).attr("opacity",0);
+             d3.selectAll(' .layer3.mat'+index).attr("opacity",0).classed("bezierCurvesVisible", false).classed("bezierCurvesInvisible", true);
         }
     chart.rerenderMultilayerPaths = function(index)
         {
             _showLayer3Edges = true;
             // d3.selectAll('#' + AugmentedNodeTrix._parentID +
             //    ' .mat'+index + '.layer3').attr("opacity",1);
-            d3.selectAll(' .mat'+index + '.layer3').attr("opacity",1);
+            d3.selectAll(' .mat'+index + '.layer3').attr("opacity",1).classed("bezierCurvesInvisible", false).classed("bezierCurvesVisible", true);
             
 
             // console.log(' .mat'+index + '.layer3' , d3.selectAll(' .mat'+index + '.layer3'));

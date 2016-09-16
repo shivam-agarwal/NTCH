@@ -45,8 +45,9 @@ function AugmentedNodeTrix(chartContainerID)
     AugmentedNodeTrix._beta = 1.0;
     AugmentedNodeTrix._LABColorSpace = false;
 
+
     var render = renderQueue(drawPath2)
-                    .rate(30)
+                    .rate(1)
                     .clear(function(){
                         d3.selectAll('#' + AugmentedNodeTrix._parentID +
                         ' .bezierCurves').remove();
@@ -1305,7 +1306,7 @@ function AugmentedNodeTrix(chartContainerID)
         else
             AugmentedNodeTrix.globalScaleFactor=1;
 
-
+        
       
 
 
@@ -1378,23 +1379,37 @@ function AugmentedNodeTrix(chartContainerID)
 
 
 
+        
         function zoomed() {
 
-           // $(".node").attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
-           // for (var i = 0; i < _piecewiseDatasetMatrix.length; ++i) _chart[i].renderUpdatedMatrix();
-            // topParent.attr("transform", " scale(" + d3.event.scale + ")");
-            // var newSelection = $('#' + _chartContainerID+ ' svg g :not(.bezierCurves)');
+            // console.log("inside zoomed");
+
+            $(".bezierCurvesVisible").attr("opacity","0.3");
+
             render.invalidate();
             render_layer3.invalidate();
             container.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
             AugmentedNodeTrix.globalScaleFactor = d3.event.scale.toFixed(1);  //to avoid long decimal calculations
 
+            clearTimeout($.data(this, 'scrollTimer'));
+                $.data(this, 'scrollTimer', setTimeout(function() {
+                    // do something
+                    // console.log("Haven't scrolled in 150ms!");
+                     //Shifting to renderAtScrollEnd()
+                    for (var i = 0; i < _piecewiseDatasetMatrix.length; ++i) _chart[i].reCalculateSize();
+                        tick();
+                $(".bezierCurvesVisible").attr("opacity","1");
+                        
+                }, 100));
+
             // console.log(AugmentedNodeTrix.globalScaleFactor);
             // topParent.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
             // $(".bezierCurves").attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
-            for (var i = 0; i < _piecewiseDatasetMatrix.length; ++i) _chart[i].reCalculateSize();
-                tick();
+
+           
           }
+
+
         // Individual matrices will be attached to these svg elements
         svgs = nodes.append("svg").attr('id', function(data, index)
         {
@@ -1564,17 +1579,7 @@ function AugmentedNodeTrix(chartContainerID)
 
     function tick()
     {
-        //
-        // console.log("inside tick");
-        // nodes.attr("transform", function(d)
-        // {
-        //     // return "translate(" + (d.x * globalScaleFactor)/ 1.3  + "," + (d.y * globalScaleFactor)/ 2 +
-        //     //     ")";
-        //     // return "translate(" + (d.x )  + "," + (d.y ) + ")";
-        //     return "translate(" + (d.x )/ 1.3  + "," + (d.y )/ 2 + ")";
-        // });
-        // Draw connecting paths whenever a tick happens
-        // if(_tickFlag == false)
+
             reRenderPaths();
             // if(_showLayer3Edge)
             render_layer3(_shortlistedEdgeList_layer3);
@@ -1583,10 +1588,11 @@ function AugmentedNodeTrix(chartContainerID)
                 if(_chart[i].getShowLayer3Edges())
                     _chart[i].rerenderMultilayerPaths(i);
             }
+            // console.log("Inside tick()");
 
                 // rerenderMultilayerPaths();
     }
-
+   
     //For context operation fo showing or deleting layer3 edges
     function removeMultilayerPaths(matrixId)
     {
@@ -1736,7 +1742,7 @@ controlPointPadd = 10;*/
                 id1, 'bottom');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'top');
-            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2 +' n'+id1+ ' n'+id2).attr('d', 'M ' +
+            path.attr('class', 'bezierCurves bezierCurvesVisible mat'+matrixNumber1 +' mat'+matrixNumber2 +' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos +
                     controlPointPadd) + ', ' + cellPosition2.xPos +
@@ -1757,7 +1763,7 @@ controlPointPadd = 10;*/
                 id1, 'right');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'left');
-           path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2 +' n'+id1+ ' n'+id2).attr('d', 'M ' +
+           path.attr('class', 'bezierCurves bezierCurvesVisible mat'+matrixNumber1 +' mat'+matrixNumber2 +' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + (cellPosition1.xPos + controlPointPadd) +
                 ' ' + cellPosition1.yPos + ', ' + (cellPosition2.xPos -
@@ -1777,7 +1783,7 @@ controlPointPadd = 10;*/
                 id1, 'top');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'bottom');
-            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+            path.attr('class', 'bezierCurves bezierCurvesVisible mat'+matrixNumber1 +' mat'+matrixNumber2+' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos -
                     controlPointPadd) + ', ' + cellPosition2.xPos +
@@ -1794,7 +1800,7 @@ controlPointPadd = 10;*/
                 id1, 'left');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'right');
-            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+            path.attr('class', 'bezierCurves bezierCurvesVisible mat'+matrixNumber1 +' mat'+matrixNumber2+' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + (cellPosition1.xPos - controlPointPadd) +
                 ' ' + cellPosition1.yPos + ', ' + (cellPosition2.xPos +
@@ -1809,7 +1815,7 @@ controlPointPadd = 10;*/
                 id1, 'top');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'bottom');
-            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2 +' n'+id1+ ' n'+id2).attr('d', 'M ' +
+            path.attr('class', 'bezierCurves bezierCurvesVisible mat'+matrixNumber1 +' mat'+matrixNumber2 +' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos -
                     controlPointPadd) + ', ' + cellPosition2.xPos +
@@ -1896,7 +1902,7 @@ controlPointPadd = 10;*/
                 id1, 'bottom');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'top');
-            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3' +' n'+id1+ ' n'+id2).attr('d', 'M ' +
+            path.attr('class', 'bezierCurves bezierCurvesInvisible mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3' +' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos +
                     controlPointPadd) + ', ' + cellPosition2.xPos +
@@ -1917,7 +1923,7 @@ controlPointPadd = 10;*/
                 id1, 'right');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'left');
-           path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+           path.attr('class', 'bezierCurves bezierCurvesInvisible mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + (cellPosition1.xPos + controlPointPadd) +
                 ' ' + cellPosition1.yPos + ', ' + (cellPosition2.xPos -
@@ -1937,7 +1943,7 @@ controlPointPadd = 10;*/
                 id1, 'top');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'bottom');
-            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+            path.attr('class', 'bezierCurves bezierCurvesInvisible mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos -
                     controlPointPadd) + ', ' + cellPosition2.xPos +
@@ -1954,7 +1960,7 @@ controlPointPadd = 10;*/
                 id1, 'left');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'right');
-            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+            path.attr('class', 'bezierCurves bezierCurvesInvisible mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + (cellPosition1.xPos - controlPointPadd) +
                 ' ' + cellPosition1.yPos + ', ' + (cellPosition2.xPos +
@@ -1969,7 +1975,7 @@ controlPointPadd = 10;*/
                 id1, 'top');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'bottom');
-            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2+ ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+            path.attr('class', 'bezierCurves bezierCurvesInvisible mat'+matrixNumber1 +' mat'+matrixNumber2+ ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos -
                     controlPointPadd) + ', ' + cellPosition2.xPos +
@@ -2010,20 +2016,7 @@ controlPointPadd = 10;*/
     }
      function drawPath_Multilayer(matrixNumber1, matrixNumber2, id1, id2, weight)
     {
-        // var matrixNumber1 = datapoint["m1"];
-        // var matrixNumber2 = datapoint["m2"];
-        // var id1 = datapoint["id1"];
-        // var  id2 = datapoint["id2"];
 
-          nodes.attr("transform", function(d)
-        {
-            // return "translate(" + (d.x * globalScaleFactor)/ 1.3  + "," + (d.y * globalScaleFactor)/ 2 +
-            //     ")";
-            return "translate(" + (d.x )/ 1.3  + "," + (d.y )/ 2 +
-                ")";
-        });
-
-        // console.log("id1",id1, "id2",id2); 
         var cellPosition1, cellPosition2;
         // console.log("d3 scale= ", myd3.event.scale);
         var controlPointPadd = 100 * AugmentedNodeTrix.globalScaleFactor;
@@ -2052,7 +2045,7 @@ controlPointPadd = 10;*/
                 id1, 'bottom');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'top');
-            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+            path.attr('class', 'bezierCurves bezierCurvesInvisible mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos +
                     controlPointPadd) + ', ' + cellPosition2.xPos +
@@ -2073,7 +2066,7 @@ controlPointPadd = 10;*/
                 id1, 'right');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'left');
-           path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+           path.attr('class', 'bezierCurves bezierCurvesInvisible mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + (cellPosition1.xPos + controlPointPadd) +
                 ' ' + cellPosition1.yPos + ', ' + (cellPosition2.xPos -
@@ -2093,7 +2086,7 @@ controlPointPadd = 10;*/
                 id1, 'top');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'bottom');
-            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+            path.attr('class', 'bezierCurves bezierCurvesInvisible mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos -
                     controlPointPadd) + ', ' + cellPosition2.xPos +
@@ -2110,7 +2103,7 @@ controlPointPadd = 10;*/
                 id1, 'left');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'right');
-            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+            path.attr('class', 'bezierCurves bezierCurvesInvisible mat'+matrixNumber1 +' mat'+matrixNumber2 + ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + (cellPosition1.xPos - controlPointPadd) +
                 ' ' + cellPosition1.yPos + ', ' + (cellPosition2.xPos +
@@ -2125,7 +2118,7 @@ controlPointPadd = 10;*/
                 id1, 'top');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'bottom');
-            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2+ ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+            path.attr('class', 'bezierCurves bezierCurvesInvisible mat'+matrixNumber1 +' mat'+matrixNumber2+ ' layer3'+' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos -
                     controlPointPadd) + ', ' + cellPosition2.xPos +
@@ -2166,12 +2159,7 @@ controlPointPadd = 10;*/
     }
     function drawPath(matrixNumber1, matrixNumber2, id1, id2, weight)
     {
-        // var matrixNumber1 = datapoint["m1"];
-        // var matrixNumber2 = datapoint["m2"];
-        // var id1 = datapoint["id1"];
-        // var  id2 = datapoint["id2"];
 
-        // console.log("id1",id1, "id2",id2); 
         var cellPosition1, cellPosition2;
         // console.log("d3 scale= ", myd3.event.scale);
         var controlPointPadd = 100 * AugmentedNodeTrix.globalScaleFactor;
@@ -2202,7 +2190,7 @@ controlPointPadd = 10;*/
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'top');
 
-            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+            path.attr('class', 'bezierCurves bezierCurvesVisible mat'+matrixNumber1 +' mat'+matrixNumber2+' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos +
                     controlPointPadd) + ', ' + cellPosition2.xPos +
@@ -2223,7 +2211,7 @@ controlPointPadd = 10;*/
                 id1, 'right');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'left');
-           path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+           path.attr('class', 'bezierCurves bezierCurvesVisible mat'+matrixNumber1 +' mat'+matrixNumber2+' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + (cellPosition1.xPos + controlPointPadd) +
                 ' ' + cellPosition1.yPos + ', ' + (cellPosition2.xPos -
@@ -2243,7 +2231,7 @@ controlPointPadd = 10;*/
                 id1, 'top');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'bottom');
-            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+            path.attr('class', 'bezierCurves bezierCurvesVisible mat'+matrixNumber1 +' mat'+matrixNumber2+' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos -
                     controlPointPadd) + ', ' + cellPosition2.xPos +
@@ -2260,7 +2248,7 @@ controlPointPadd = 10;*/
                 id1, 'left');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'right');
-            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+            path.attr('class', 'bezierCurves bezierCurvesVisible mat'+matrixNumber1 +' mat'+matrixNumber2+' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + (cellPosition1.xPos - controlPointPadd) +
                 ' ' + cellPosition1.yPos + ', ' + (cellPosition2.xPos +
@@ -2275,7 +2263,7 @@ controlPointPadd = 10;*/
                 id1, 'top');
             cellPosition2 = _chart[matrixNumber2].connectingPosition(
                 id2, 'bottom');
-            path.attr('class', 'bezierCurves mat'+matrixNumber1 +' mat'+matrixNumber2+' n'+id1+ ' n'+id2).attr('d', 'M ' +
+            path.attr('class', 'bezierCurves bezierCurvesVisible mat'+matrixNumber1 +' mat'+matrixNumber2+' n'+id1+ ' n'+id2).attr('d', 'M ' +
                 cellPosition1.xPos + ' ' + cellPosition1.yPos +
                 ' C ' + cellPosition1.xPos + ' ' + (cellPosition1.yPos -
                     controlPointPadd) + ', ' + cellPosition2.xPos +
