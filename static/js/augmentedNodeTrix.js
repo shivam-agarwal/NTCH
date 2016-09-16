@@ -1323,12 +1323,16 @@ function AugmentedNodeTrix(chartContainerID)
                             .translate([zoomWidth,zoomHeight])
                             .scale(AugmentedNodeTrix.globalScaleFactor)
                     // .scaleExtent([1, 10])
-                            .on("zoom", zoomed);
+                            // .duration(10)
+                            .on("zoomstart", zoomStart)
+                            .on("zoom", zoomed)
+                            .on("zoomend", zoomEnd);
 
         var node_drag = d3.behavior.drag()
                             .origin(function(d) { return d; })
                             .on("dragstart", dragstart)
                             .on("drag", dragmove)
+                            // .duration(10)
                             .on("dragend", dragend);
 
         // Chart will be attached to the ID provided as input.
@@ -1336,8 +1340,11 @@ function AugmentedNodeTrix(chartContainerID)
             .attr('id', AugmentedNodeTrix._parentID).attr('width',
                 _width).attr('height', _height)
             .append("g")
-            //Apended for zoom in and out --not working as intended
+            //Apended for zoom in and out --not working as intended  
+
             .call(zoom );
+        // topParent.on("dblclick.zoom", null);
+
             //  .on("mousedown.zoom", null)
             // .on("touchstart.zoom", null)
             // .on("touchmove.zoom", null)
@@ -1373,42 +1380,40 @@ function AugmentedNodeTrix(chartContainerID)
         //     nodes[0].x = _width / 2;
         //     nodes[0].y = _height / 2;
         // });
-        nodes = container.selectAll(".node").data(
+            nodes = container.selectAll(".node").data(
             _piecewiseDatasetMatrix).enter().append("g").attr(
             "class", "node").call(node_drag);
 
 
+        function zoomStart()
+        {
+            // console.log("at start of zoom");
+            d3.selectAll(".bezierCurvesVisible").transition()
+                            .duration(400)
+                            .style("opacity","0");
 
-        
+            render.invalidate();
+            render_layer3.invalidate();
+        }
+       
         function zoomed() {
 
             // console.log("inside zoomed");
 
-            $(".bezierCurvesVisible").attr("opacity","0.3");
-
-            render.invalidate();
-            render_layer3.invalidate();
             container.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
             AugmentedNodeTrix.globalScaleFactor = d3.event.scale.toFixed(1);  //to avoid long decimal calculations
-
-            clearTimeout($.data(this, 'scrollTimer'));
-                $.data(this, 'scrollTimer', setTimeout(function() {
-                    // do something
-                    // console.log("Haven't scrolled in 150ms!");
-                     //Shifting to renderAtScrollEnd()
-                    for (var i = 0; i < _piecewiseDatasetMatrix.length; ++i) _chart[i].reCalculateSize();
-                        tick();
-                $(".bezierCurvesVisible").attr("opacity","1");
-                        
-                }, 100));
-
-            // console.log(AugmentedNodeTrix.globalScaleFactor);
-            // topParent.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
-            // $(".bezierCurves").attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
-
            
           }
+           function zoomEnd()
+        {
+            // console.log("at end of zoom");
+            for (var i = 0; i < _piecewiseDatasetMatrix.length; ++i) _chart[i].reCalculateSize();
+            tick();
+            d3.selectAll(".bezierCurvesVisible").transition()
+                            .duration(200)
+                            .style("opacity","1");
 
+        }
 
         // Individual matrices will be attached to these svg elements
         svgs = nodes.append("svg").attr('id', function(data, index)
@@ -1491,8 +1496,12 @@ function AugmentedNodeTrix(chartContainerID)
         chart.shortlistEdgesBetweenMatricesMultilayer(_edgeList_layer3);
 
         force.start();
+        nodes.attr("transform", function(d)
+        {
+            return "translate(" + (d.x )/ 1.3  + "," + (d.y )/ 2 +
+                ")";
+        });
 
-        // tick();
         force.stop();
 
         //Shivam-All of this to translate to center fo layout nodes. But it has some error as it is not perfectly translating when a single matrix is in data.
@@ -1703,13 +1712,13 @@ function AugmentedNodeTrix(chartContainerID)
         var  id2 = datapoint["id2"];
         var weight = datapoint["weight"];
 
-          nodes.attr("transform", function(d)
-        {
-            // return "translate(" + (d.x * globalScaleFactor)/ 1.3  + "," + (d.y * globalScaleFactor)/ 2 +
-            //     ")";
-            return "translate(" + (d.x )/ 1.3  + "," + (d.y )/ 2 +
-                ")";
-        });
+        //   nodes.attr("transform", function(d)
+        // {
+        //     // return "translate(" + (d.x * globalScaleFactor)/ 1.3  + "," + (d.y * globalScaleFactor)/ 2 +
+        //     //     ")";
+        //     return "translate(" + (d.x )/ 1.3  + "," + (d.y )/ 2 +
+        //         ")";
+        // });
 
         // console.log("id1",id1, "id2",id2); 
         var cellPosition1, cellPosition2;
@@ -1864,13 +1873,13 @@ controlPointPadd = 10;*/
         var  id2 = datapoint["id2"];
         var weight = datapoint["weight"];
 
-          nodes.attr("transform", function(d)
-        {
-            // return "translate(" + (d.x * globalScaleFactor)/ 1.3  + "," + (d.y * globalScaleFactor)/ 2 +
-            //     ")";
-            return "translate(" + (d.x )/ 1.3  + "," + (d.y )/ 2 +
-                ")";
-        });
+        //   nodes.attr("transform", function(d)
+        // {
+        //     // return "translate(" + (d.x * globalScaleFactor)/ 1.3  + "," + (d.y * globalScaleFactor)/ 2 +
+        //     //     ")";
+        //     return "translate(" + (d.x )/ 1.3  + "," + (d.y )/ 2 +
+        //         ")";
+        // });
 
         // console.log("id1",id1, "id2",id2); 
         var cellPosition1, cellPosition2;
