@@ -73,6 +73,13 @@ function AugmentedNodeTrix(chartContainerID)
         _chart[index].testingMatrixShapeChang();
         return chart;
     }
+
+    chart.modifySize = function()
+    {
+        _chart[0].modifySize();
+        return this;
+    }
+
     chart.width = function(width)
     {
         if (undefined != width)

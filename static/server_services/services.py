@@ -1,3 +1,6 @@
+
+# NOT WORKING ANYMORE SHIFTED TO SERVER.PY
+
 import predict
 import os.path
 from flask import Flask, request, json
@@ -570,7 +573,7 @@ def similarity():
 	# DATA_DIR = "/home/shivam/Desktop/Revisiting/server_services/pythondata_usf"
 	# DATA_DIR = "/home/shivam/Desktop/Revisiting/server_services/pythondata_wordnet"
 	# DATA_DIR = "/home/shivam/Desktop/Revisiting/server_services/pythondata_adjnoun"
-
+	print "in similarity"
 	receivedIds = request.json["ids"]
 	matrixType = request.json["matrixType"]
 	length = len(receivedIds)
@@ -591,6 +594,7 @@ def similarity():
 	if matrixType == 'coauthor':
 		dictMatrix = pickle.load(open(DATA_DIR + "/co-authorship_dictionary_matrix.p","rb"))
 		# print dictMatrix
+		print "in co-author"
 
 		for i in range(0,len(receivedIds)):
 			for j in range(0,len(receivedIds)):
@@ -600,6 +604,7 @@ def similarity():
 	elif matrixType == 'cocitation':
 		dictMatrix = pickle.load(open(DATA_DIR + "/co-citation_authors_dictionary_matrix.p","rb"))
 		# print dictMatrix
+		print "in cocitation"
 
 		for i in range(0,len(receivedIds)):
 			for j in range(0,len(receivedIds)):
@@ -607,8 +612,11 @@ def similarity():
 		print X
 		print matrixType
 	elif matrixType == 'authortopic':
+		print "in authortopic"
 		dictMatrix = pickle.load(open(DATA_DIR + "/author_topic_dictionary_matrix.p","rb"))
-		# print dictMatrix
+		print dictMatrix
+		print "received ids: ",receivedIds
+		print "global author name: ",dictGlobalIDAuthorName
 
 		for i in range(0,len(receivedIds)):
 			for j in range(0,len(receivedIds)):

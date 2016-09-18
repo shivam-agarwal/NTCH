@@ -251,8 +251,8 @@ function MatrixVisualization()
         _matrixSize = 1;
         _matrixRowSize = 1;
         _matrixColumnSize = 1;
-        _width = _matrixColumnSize * _cellWidthScale;
-        _height = _matrixRowSize * _cellWidthScale;
+        _width = _matrixColumnSize * _cellWidthScale * AugmentedNodeTrix.globalScaleFactor;
+        _height = _matrixRowSize * _cellWidthScale* AugmentedNodeTrix.globalScaleFactor;
         _axisPositioningScale = d3.scale.ordinal().domain(d3.range(
             _matrixSize)).rangeBands([0, _width]);
         _axisColumnPositioningScale = d3.scale.ordinal().domain(d3.range(
@@ -2641,17 +2641,17 @@ function MatrixVisualization()
         // .attr("width",10)
         // .attr("height",10)
         //  .attr("xlink:href","http://www.clker.com/cliparts/1/4/5/a/1331068897296558865Sitting%20Racoon.svg");
-            // var selection = d3.select("#"+_matrixID).selectAll("*");
-            // selection.transition()
-            //                     .duration(1000)
-            //                     .style("opacity","0");
+            var selection = d3.select("#"+_matrixID).selectAll("*");
+            selection.transition()
+                                .duration(1000)
+                                .style("opacity","0");
         
-        
-            //  var selection = d3.select("#"+_matrixID).selectAll("*");
-            // selection.remove();
+        setTimeout(function(){ 
+             var selection = d3.select("#"+_matrixID).selectAll("*");
+            selection.remove();
 
                 svg = d3.selectAll('#' + _matrixID)
-                // .attr("opacity","0")
+                .attr("opacity","0")
                 .attr("width", _width +
                 _margin.left + _margin.right).attr("height", _height +
                 _margin.top + _margin.bottom).attr("margin-left", -
@@ -2750,11 +2750,11 @@ function MatrixVisualization()
         .style('font-size', 11)
 
 
-        // var selection = d3.select("#"+_matrixID);
-        //     selection.transition()
-        //                         .duration(1000)
-        //                         .style("opacity","1");
-    // }, 2000);  
+        var selection = d3.select("#"+_matrixID);
+            selection.transition()
+                                .duration(1000)
+                                .style("opacity","1");
+    }, 1000);  
         
     }
     chart.updateValueFiltering = function(beta)
