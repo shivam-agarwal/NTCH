@@ -1,0 +1,7 @@
+silhouete coefficient for louvain CD in C3
+Louvain in C1, C2
+CLUSION lines 
+word association data corrected Qg values ...
+
+C1: kmeans k=2,3,4, check louvain gives what and generate cluster according to that
+C2: kmeans , k=2,3,4,5,6,7 similarly with  louvain.... mem matrix, graph, clusion output images(with lines)

@@ -1,0 +1,1 @@
+Clustering type, Number_of_clusters, Qg, Silhouette Coefficient(kmeans), FPC(cmeans), Modularity(Louvain)

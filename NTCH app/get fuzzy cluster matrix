@@ -1,0 +1,18 @@
+var lineArray = [];
+clusterMatrix.forEach(function (infoArray, index) {
+    var line = infoArray.join(",");
+    lineArray.push(index == 0 ?  line : line);
+});
+var csvContent = lineArray.join("\n");
+
+labels.forEach(function(obj, index){ 
+var line = obj.name.join(",")
+    lineArray.push(index == 0 ?  line : line);
+});
+var labelsContent = lineArray.join("\n");
+
+line="";
+for(var i=0;i < labels.length; i++)
+{
+	line+= labels[i].name + ",";
+}
